@@ -1,0 +1,71 @@
+---
+import news from '../content/news.json';
+import { LANGS, formatDate, type Content, type Lang } from '../i18n';
+interface Props { c: Content; lang: Lang }
+const { c, lang } = Astro.props;
+const items = [...news].sort((a, b) => b.date.localeCompare(a.date));
+type L = keyof typeof c.news.languages;
+---
+<section id="news" class="section" aria-labelledby="news-title">
+  <div class="container">
+    <p class="label">{c.news.label}</p>
+    <h2 id="news-title" class="h2 news-title">{c.news.title}</h2>
+    <ul class="rows">
+      {items.map((n) => (
+        <li data-reveal>
+          <a class="row" href={n.url} hreflang={LANGS[n.articleLang as Lang]?.lang ?? n.articleLang}>
+            <time class="date" datetime={n.date}>{formatDate(n.date, lang)}</time>
+            <span class="headline">{n.title[lang]}</span>
+            <span class="source">
+              {n.source[lang]}
+              {n.articleLang !== lang && <span class="lang-note">{c.news.languages[n.articleLang as L]}</span>}
+              <span class="visually-hidden">, {c.news.external}</span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .news-title { margin-bottom: 40px; }
+  .row {
+    display: grid;
+    grid-template-columns: 160px minmax(0, 1fr) 220px;
+    gap: 32px;
+    padding: 24px 0;
+    color: var(--ink);
+  }
+  .row:hover { text-decoration: none; }
+  .row:hover .headline {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+  }
+  .date { color: var(--ink-3); }
+  .headline {
+    font-size: 20px;
+    line-height: 1.35;
+  }
+  .source {
+    text-align: right;
+    font-size: var(--fs-small);
+    color: var(--ink-3);
+  }
+  .lang-note {
+    display: block;
+    font-size: var(--fs-label);
+  }
+  @media (max-width: 900px) {
+    .news-title { margin-bottom: 28px; }
+    .row {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 6px;
+      padding: 20px 0;
+    }
+    .source { text-align: left; }
+    .lang-note { display: inline; margin-left: 6px; }
+    .headline { font-size: 18px; }
+  }
+</style>

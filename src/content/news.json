@@ -1,0 +1,32 @@
+[
+  {
+    "date": "2026-10-20",
+    "url": "https://dairynews.today/news/v_konaeve_stroyat_syrnyy_zavod_moshchnostyu_40_920_tonn_v_god_8754667.html",
+    "articleLang": "ru",
+    "title": {
+      "ru": "В Конаеве строят сырный завод мощностью 40 920 тонн в год",
+      "kz": "Қонаевта жылына 40 920 тонна өнім шығаратын ірімшік зауыты салынып жатыр",
+      "en": "A cheese plant with 40,920 t annual capacity is being built in Konaev"
+    },
+    "source": {
+      "ru": "DairyNews, по данным холдинга «Байтерек»",
+      "kz": "DairyNews, «Бәйтерек» холдингінің деректері бойынша",
+      "en": "DairyNews, from Baiterek holding"
+    }
+  },
+  {
+    "date": "2026-04-15",
+    "url": "https://kz.kursiv.media/en/2026-04-15/engk-yeri-irans-solico-group-eyes-dbk-funding-for-new-kazakhstan-plant/",
+    "articleLang": "en",
+    "title": {
+      "ru": "Solico Group рассчитывает на финансирование Банка развития Казахстана для нового завода",
+      "kz": "Solico Group жаңа зауыт үшін Қазақстан Даму Банкінің қаржыландыруын күтуде",
+      "en": "Iran's Solico Group eyes DBK funding for new Kazakhstan plant"
+    },
+    "source": {
+      "ru": "Kursiv",
+      "kz": "Kursiv",
+      "en": "Kursiv"
+    }
+  }
+]

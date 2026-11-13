@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import Figures from '../../components/Figures.astro';
+import Project from '../../components/Project.astro';
+import Chain from '../../components/Chain.astro';
+import Solico from '../../components/Solico.astro';
+import Timeline from '../../components/Timeline.astro';
+import Team from '../../components/Team.astro';
+import News from '../../components/News.astro';
+import Contact from '../../components/Contact.astro';
+import { LANG_CODES, t, type Lang } from '../../i18n';
+
+export function getStaticPaths() {
+  return LANG_CODES.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const c = t(lang);
+---
+<Base lang={lang}>
+  <Hero c={c} />
+  <Figures c={c} />
+  <Project c={c} />
+  <Chain c={c} />
+  <Solico c={c} />
+  <Timeline c={c} />
+  <Team c={c} lang={lang} />
+  <News c={c} lang={lang} />
+  <Contact c={c} />
+</Base>

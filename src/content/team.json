@@ -1,0 +1,54 @@
+[
+  {
+    "id": "amankossov",
+    "name": {
+      "ru": "Курмангали Аманкосов [TO CONFIRM]",
+      "kz": "Курмангали Аманкосов [TO CONFIRM]",
+      "en": "Kurmangali Amankossov [TO CONFIRM]"
+    },
+    "role": {
+      "ru": "Генеральный директор [TO CONFIRM]",
+      "kz": "Бас директор [TO CONFIRM]",
+      "en": "General Manager [TO CONFIRM]"
+    },
+    "focus": { "ru": "", "kz": "", "en": "" }
+  },
+  {
+    "id": "jakishev",
+    "name": {
+      "ru": "Мурат Оразбаевич Джакишев",
+      "kz": "Мурат Оразбаевич Джакишев",
+      "en": "Murat Jakishev"
+    },
+    "role": {
+      "ru": "Инвестиционный директор",
+      "kz": "Инвестициялық директор",
+      "en": "Investment Director"
+    },
+    "focus": {
+      "ru": "Взаимодействие с госорганами, строительство, финансы",
+      "kz": "Мемлекеттік органдармен байланыс, құрылыс, қаржы",
+      "en": "Government relations, construction, finance"
+    }
+  },
+  {
+    "id": "karantayev",
+    "name": {
+      "ru": "Нуркельды Даулетович Карантаев",
+      "kz": "Нуркельды Даулетович Карантаев",
+      "en": "Nurkeldi Karantayev"
+    },
+    "role": {
+      "ru": "Директор по взаимодействию с государственными органами",
+      "kz": "Мемлекеттік органдармен өзара іс-қимыл жөніндегі директор",
+      "en": "GR Director"
+    },
+    "focus": { "ru": "", "kz": "", "en": "" }
+  },
+  {
+    "id": "member-4",
+    "name": { "ru": "[TO CONFIRM]", "kz": "[TO CONFIRM]", "en": "[TO CONFIRM]" },
+    "role": { "ru": "[TO CONFIRM]", "kz": "[TO CONFIRM]", "en": "[TO CONFIRM]" },
+    "focus": { "ru": "", "kz": "", "en": "" }
+  }
+]

@@ -1,0 +1,52 @@
+---
+import type { Content } from '../i18n';
+interface Props { c: Content }
+const { figures } = Astro.props.c;
+---
+<section class="figures-section" aria-labelledby="figures-title">
+  <div class="container">
+    <h2 id="figures-title" class="visually-hidden">{figures.label}</h2>
+    <ul class="figures">
+      {figures.items.map((item) => (
+        <li>
+          <span class="figure-value">{item.value}</span>
+          <span class="figure-text">{item.text}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .figures-section { padding-block: 72px 96px; }
+  .figures {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 1px solid var(--ink);
+  }
+  .figures li {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 24px 0;
+    border-left: 1px solid var(--rule);
+  }
+  .figures li:first-child { padding-left: 0; border-left: 0; }
+  .figure-value {
+    font-family: var(--serif);
+    font-size: var(--fs-figure);
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .figure-text {
+    margin-top: 12px;
+    font-size: var(--fs-small);
+    color: var(--ink-2);
+  }
+  @media (max-width: 900px) {
+    .figures-section { padding-block: 48px 64px; }
+    .figures { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .figures li { padding: 20px 0 24px 20px; }
+    .figures li:nth-child(odd) { padding-left: 0; border-left: 0; }
+    .figures li:nth-child(n + 3) { border-top: 1px solid var(--rule); }
+  }
+</style>

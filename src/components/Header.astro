@@ -1,0 +1,144 @@
+---
+import LangSwitch from './LangSwitch.astro';
+import type { Content, Lang } from '../i18n';
+interface Props { lang: Lang; c: Content }
+const { lang, c } = Astro.props;
+---
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="wordmark" href="#top">
+      <span class="wordmark-name">{c.brand.name}</span>
+      <span class="wordmark-tag">{c.brand.tagline}</span>
+    </a>
+
+    <nav class="site-nav" id="site-nav" aria-label={c.nav.label}>
+      <ul>
+        {c.nav.items.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="header-tools">
+      <LangSwitch lang={lang} label={c.nav.langLabel} />
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav"
+        data-open={c.nav.menu} data-close={c.nav.close} hidden>
+        <svg width="18" height="12" viewBox="0 0 18 12" aria-hidden="true" focusable="false">
+          <path d="M0 1h18M0 6h18M0 11h18" fill="none" stroke="currentColor" stroke-width="1.5" />
+        </svg>
+        <span class="menu-button-text">{c.nav.menu}</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: var(--header-h);
+  }
+  .wordmark {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    color: var(--green);
+    padding-block: 10px;
+  }
+  .wordmark:hover { text-decoration: none; }
+  .wordmark-name {
+    font-family: var(--serif);
+    font-size: 30px;
+    letter-spacing: -0.01em;
+  }
+  .wordmark-tag {
+    margin-top: 6px;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+  }
+  .site-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 32px;
+    font-size: var(--fs-small);
+    font-weight: 500;
+  }
+  .site-nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    color: var(--ink);
+  }
+  .header-tools {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .menu-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 0 14px;
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    font-size: var(--fs-small);
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .menu-button[aria-expanded='true'] { background: var(--ink); color: var(--on-dark); }
+
+  @media (min-width: 901px) {
+    .menu-button { display: none; }
+  }
+
+  @media (max-width: 900px) {
+    .wordmark-name { font-size: 24px; }
+    .wordmark-tag { font-size: 11px; }
+    .header-inner { gap: 12px; }
+    /* Without JavaScript the links simply wrap under the wordmark. */
+    .header-inner { flex-wrap: wrap; }
+    :global(html.js) .header-inner { flex-wrap: nowrap; }
+    .site-nav { order: 3; width: 100%; }
+    :global(html.js) .site-nav {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      width: auto;
+      background: var(--paper);
+      border-bottom: 1px solid var(--ink);
+    }
+    :global(html.js) .site-nav.is-open { display: block; }
+    :global(html.js) .site-nav ul {
+      flex-direction: column;
+      gap: 0;
+      padding: 8px var(--gutter) 24px;
+      font-size: 20px;
+    }
+    :global(html.js) .site-nav li { border-bottom: 1px solid var(--rule); }
+    :global(html.js) .site-nav a { display: flex; min-height: 56px; }
+  }
+
+  @media (max-width: 380px) {
+    /* Icon only on the narrowest phones; the text stays for screen readers. */
+    .menu-button-text {
+      position: absolute;
+      width: 1px; height: 1px;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+    }
+    .menu-button { padding: 0 12px; }
+  }
+</style>

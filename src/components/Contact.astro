@@ -1,0 +1,63 @@
+---
+import type { Content } from '../i18n';
+interface Props { c: Content }
+const { contact } = Astro.props.c;
+const tel = contact.phone.value ? `tel:${contact.phone.value.replace(/[^+\d]/g, '')}` : '';
+---
+<section id="contact" class="contact band-ink on-dark" aria-labelledby="contact-title">
+  <div class="container grid">
+    <div class="span-6">
+      <p class="label">{contact.label}</p>
+      <h2 id="contact-title" class="contact-title">{contact.title}</h2>
+    </div>
+    <div class="span-3 col">
+      <h3 class="item-label">{contact.email.label}</h3>
+      {contact.email.value
+        ? <p class="big"><a href={`mailto:${contact.email.value}`}>{contact.email.value}</a></p>
+        : <p class="big">{contact.missing}</p>}
+      <h3 class="item-label">{contact.phone.label}</h3>
+      {contact.phone.value
+        ? <p class="big"><a href={tel}>{contact.phone.value}</a></p>
+        : <p class="big">{contact.missing}</p>}
+    </div>
+    <div class="span-3 col">
+      <h3 class="item-label">{contact.site.label}</h3>
+      <p>{contact.site.lines.map((l, i) => <>{i > 0 && <br />}{l}</>)}</p>
+      <h3 class="item-label">{contact.office.label}</h3>
+      <p>{contact.office.lines.map((l, i) => <>{i > 0 && <br />}{l}</>)}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact { padding-block: 96px 0; }
+  .contact-title {
+    margin-top: 20px;
+    font-size: var(--fs-h2-big);
+    line-height: 1.05;
+  }
+  .item-label {
+    margin: 28px 0 8px;
+    font-size: var(--fs-label);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--on-ink-3);
+  }
+  .col .item-label:first-child { margin-top: 0; }
+  .big { font-size: 20px; overflow-wrap: anywhere; }
+  .contact a {
+    color: var(--on-dark);
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+    text-decoration-color: rgba(246, 243, 236, 0.45);
+    text-decoration-thickness: 1px;
+  }
+  .contact a:hover { text-decoration-color: currentColor; }
+  @media (min-width: 901px) {
+    .col { padding-top: 40px; }
+  }
+  @media (max-width: 900px) {
+    .contact { padding-top: 64px; }
+  }
+</style>

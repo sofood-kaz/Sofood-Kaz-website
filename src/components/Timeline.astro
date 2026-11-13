@@ -1,0 +1,52 @@
+---
+import type { Content } from '../i18n';
+interface Props { c: Content }
+const { timeline } = Astro.props.c;
+type Status = keyof typeof timeline.status;
+---
+<section id="timeline" class="section" aria-labelledby="timeline-title">
+  <div class="container">
+    <p class="label">{timeline.label}</p>
+    <h2 id="timeline-title" class="h2 timeline-title">{timeline.title}</h2>
+    <ol class="rows timeline">
+      {timeline.items.map((item) => (
+        <li class:list={['row', `is-${item.status}`]} data-reveal>
+          <span class="date">{item.date}</span>
+          <span class="event">{item.text}</span>
+          <span class="status">{timeline.status[item.status as Status]}</span>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .timeline-title { margin-bottom: 48px; }
+  .row {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr) 160px;
+    gap: 32px;
+    padding: 22px 0;
+  }
+  .date { font-weight: 600; }
+  .status {
+    text-align: right;
+    color: var(--ink-3);
+  }
+  .is-now .status {
+    color: var(--green);
+    font-weight: 600;
+  }
+  .is-now .event { font-weight: 500; }
+  @media (max-width: 900px) {
+    .timeline-title { margin-bottom: 32px; }
+    .row {
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 4px 16px;
+      padding: 18px 0;
+    }
+    .date { grid-column: 1; grid-row: 1; }
+    .status { grid-column: 2; grid-row: 1; }
+    .event { grid-column: 1 / -1; grid-row: 2; }
+  }
+</style>

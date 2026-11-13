@@ -1,0 +1,90 @@
+/* Layout primitives: container, 12-column grid, section labels, hairline rows. */
+
+.container {
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section { padding-block: var(--section-y); }
+.band-white { background: var(--white); border-block: 1px solid var(--rule); }
+.band-green { background: var(--green); color: var(--on-dark); }
+.band-ink { background: var(--ink); color: var(--on-dark); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+}
+.span-4 { grid-column: span 4; }
+.span-5 { grid-column: span 5; }
+.span-6 { grid-column: span 6; }
+.span-7 { grid-column: span 7; }
+.span-8 { grid-column: span 8; }
+.span-3 { grid-column: span 3; }
+@media (max-width: 900px) {
+  .grid { row-gap: 40px; }
+  .span-3, .span-4, .span-5, .span-6, .span-7, .span-8 { grid-column: 1 / -1; }
+}
+
+/* "01 — THE PROJECT" */
+.label {
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--green);
+}
+.band-green .label { color: var(--on-green-3); }
+.band-ink .label { color: var(--on-ink-3); }
+
+.h2 {
+  margin-top: 20px;
+  font-size: var(--fs-h2);
+  line-height: 1.08;
+}
+.prose p + p { margin-top: 16px; }
+.prose { color: var(--ink-2); }
+
+/* Rows divided by hairlines: lists, timelines, news. */
+.rows { border-top: 1px solid var(--ink); }
+.rows > * { border-bottom: 1px solid var(--rule); }
+
+/* Figure with caption (photo or placeholder). */
+.figure figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 10px;
+  font-size: var(--fs-label);
+  color: var(--ink-3);
+}
+.photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  background: var(--placeholder);
+}
+.photo-placeholder {
+  position: relative;
+  width: 100%;
+  background: var(--placeholder);
+  border: 1px solid var(--rule);
+}
+.photo-placeholder span {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  right: 14px;
+  font-size: var(--fs-label);
+  color: var(--ink-3);
+}
+
+/* Sections below the first screen are laid out only when they come near
+   the viewport. Keeps the first load light on phones. */
+main > section.section,
+main > section.contact {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}

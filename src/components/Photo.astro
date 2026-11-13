@@ -1,0 +1,40 @@
+---
+/*
+ * A real photo when the file exists, otherwise a neutral placeholder.
+ * The caption always says what the picture shows (or will show).
+ */
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  image?: ImageMetadata;
+  alt: string;
+  ratio: string;            // CSS aspect-ratio, e.g. "5 / 6"
+  caption?: string;
+  date?: string;
+  inside?: string;          // small label inside the placeholder box
+  sizes: string;
+  widths: number[];
+  eager?: boolean;
+  class?: string;
+}
+
+const { image, alt, ratio, caption, date, inside, sizes, widths, eager = false, class: cls } = Astro.props;
+const style = `aspect-ratio: ${ratio}`;
+---
+{caption ? (
+  <figure class:list={['figure', cls]}>
+    {image ? (
+      <Picture src={image} alt={alt} formats={['avif', 'webp']} widths={widths} sizes={sizes}
+        loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : 'auto'} class="photo" style={style} />
+    ) : (
+      <div class="photo-placeholder" style={style} aria-hidden="true">{inside && <span>{inside}</span>}</div>
+    )}
+    <figcaption><span>{caption}</span>{date && <span>{date}</span>}</figcaption>
+  </figure>
+) : image ? (
+  <Picture src={image} alt={alt} formats={['avif', 'webp']} widths={widths} sizes={sizes}
+    loading={eager ? 'eager' : 'lazy'} class:list={['photo', cls]} style={style} />
+) : (
+  <div class:list={['photo-placeholder', cls]} style={style} aria-hidden="true">{inside && <span>{inside}</span>}</div>
+)}

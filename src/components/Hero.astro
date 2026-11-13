@@ -1,0 +1,81 @@
+---
+import Photo from './Photo.astro';
+import { findPhoto } from '../lib/images';
+import type { Content } from '../i18n';
+interface Props { c: Content }
+const { hero } = Astro.props.c;
+---
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="container grid hero-grid">
+    <div class="span-7 hero-text">
+      <p class="hero-kicker">{hero.kicker}</p>
+      <h1 id="hero-title" class="hero-title">{hero.title}</h1>
+      <p class="hero-lead">{hero.lead}</p>
+      <div class="hero-actions">
+        <a class="button" href="#project">{hero.cta}</a>
+        <a class="text-link" href="#contact">{hero.link}</a>
+      </div>
+    </div>
+    <div class="span-5">
+      <Photo image={findPhoto(hero.photo.file)} alt={hero.photo.alt} ratio="5 / 6"
+        caption={hero.photo.caption} date={hero.photo.date} eager
+        sizes="(max-width: 900px) 100vw, 480px" widths={[480, 720, 960]} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero { padding-top: 72px; }
+  .hero-grid { align-items: end; }
+  .hero-kicker {
+    margin-bottom: 28px;
+    font-size: var(--fs-label);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .hero-title {
+    font-size: var(--fs-h1);
+    line-height: 1.02;
+  }
+  .hero-lead {
+    max-width: 560px;
+    margin-top: 32px;
+    font-size: var(--fs-lead);
+    color: var(--ink-2);
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px 28px;
+    margin-top: 40px;
+  }
+  .button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 26px;
+    background: var(--green);
+    color: var(--white);
+    font-weight: 500;
+    font-size: 16px;
+  }
+  .button:hover { background: #084A28; text-decoration: none; }
+  .text-link {
+    font-weight: 500;
+    font-size: 16px;
+    padding-block: 12px;
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+    text-decoration-thickness: 1px;
+  }
+  .text-link:hover { text-decoration-thickness: 2px; }
+  @media (max-width: 900px) {
+    .hero { padding-top: 40px; }
+    .hero-kicker { margin-bottom: 20px; }
+    .hero-lead { margin-top: 24px; font-size: var(--fs-body); }
+    .hero-actions { margin-top: 32px; }
+  }
+</style>

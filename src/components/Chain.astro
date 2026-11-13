@@ -1,0 +1,50 @@
+---
+import type { Content } from '../i18n';
+interface Props { c: Content }
+const { chain } = Astro.props.c;
+---
+<section id="chain" class="section" aria-labelledby="chain-title">
+  <div class="container">
+    <p class="label">{chain.label}</p>
+    <h2 id="chain-title" class="h2 chain-title">{chain.title}</h2>
+    <ol class="chain">
+      {chain.columns.map((col) => (
+        <li data-reveal>
+          <p class="kicker">{col.kicker}</p>
+          <h3>{col.title}</h3>
+          <p class="text">{col.text}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .chain-title { max-width: 760px; margin-bottom: 56px; }
+  .chain {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid var(--ink);
+  }
+  .chain li {
+    padding: 28px 32px 0;
+    border-left: 1px solid var(--rule);
+  }
+  .chain li:first-child { padding-left: 0; border-left: 0; }
+  .chain li:last-child { padding-right: 0; }
+  .kicker {
+    font-size: 14px;
+    color: var(--ink-3);
+  }
+  .chain h3 {
+    margin: 8px 0 12px;
+    font-size: var(--fs-h3);
+    line-height: 1.25;
+  }
+  .text { color: var(--ink-2); }
+  @media (max-width: 900px) {
+    .chain-title { margin-bottom: 40px; }
+    .chain { grid-template-columns: minmax(0, 1fr); }
+    .chain li { padding: 24px 0 28px; border-left: 0; border-bottom: 1px solid var(--rule); }
+  }
+</style>

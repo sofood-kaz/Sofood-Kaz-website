@@ -1,0 +1,77 @@
+---
+import Photo from './Photo.astro';
+import { findPhoto } from '../lib/images';
+import type { Content } from '../i18n';
+interface Props { c: Content }
+const { project } = Astro.props.c;
+---
+<section id="project" class="section band-white" aria-labelledby="project-title">
+  <div class="container grid">
+    <div class="span-4" data-reveal>
+      <p class="label">{project.label}</p>
+      <h2 id="project-title" class="h2">{project.title}</h2>
+      <div class="prose project-text">
+        {project.paragraphs.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+    <div class="span-8">
+      <Photo image={findPhoto(project.plan.file)} alt={project.plan.alt} ratio="15 / 8"
+        caption={project.plan.caption} sizes="(max-width: 900px) 100vw, 790px" widths={[640, 960, 1280, 1600]} />
+
+      <h3 class="list-label">{project.listLabel}</h3>
+      <ol class="facilities">
+        {project.facilities.map((item, i) => (
+          <li><span class="num" aria-hidden="true">{i + 1}</span><span>{item}</span></li>
+        ))}
+      </ol>
+
+      <div class="energy" data-reveal>
+        <h3 class="list-label">{project.energy.label}</h3>
+        <p>{project.energy.text} <a href={project.energy.url}>{project.energy.linkText}</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .project-text { margin-top: 24px; }
+  .list-label {
+    margin-top: 40px;
+    margin-bottom: 12px;
+    font-size: var(--fs-label);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .facilities {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    border-bottom: 1px solid var(--rule);
+  }
+  .facilities li {
+    display: flex;
+    gap: 16px;
+    padding: 14px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .num {
+    flex: 0 0 28px;
+    font-weight: 600;
+    color: var(--green);
+  }
+  .energy { margin-top: 8px; }
+  .energy p {
+    max-width: 640px;
+    color: var(--ink-2);
+  }
+  .energy a {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+  }
+  @media (max-width: 640px) {
+    .facilities { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

@@ -1,0 +1,55 @@
+---
+import { LANGS, LANG_CODES, DEFAULT_LANG, type Content, type Lang } from '../i18n';
+interface Props { lang: Lang; c: Content }
+const { lang, c } = Astro.props;
+
+const site = Astro.site!.origin;
+const url = `${site}/${lang}/`;
+const ogImage = `${site}/og/og-${lang}.png`;
+
+const org = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': `${site}/#organization`,
+  name: 'Sofood Kaz',
+  legalName: c.footer.company,
+  alternateName: ['ТОО «Sofood Kaz»', 'Sofood Kaz ЖШС', 'Sofood Kaz LLP'],
+  url: `${site}/`,
+  logo: `${site}/icon-512.png`,
+  taxID: '250140007695',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'проспект Кунаева, 18Г',
+    addressLocality: 'Конаев',
+    addressRegion: 'Алматинская область',
+    addressCountry: 'KZ',
+  },
+  parentOrganization: {
+    '@type': 'Organization',
+    name: 'Solico Group',
+    url: 'https://solico-group.com/',
+  },
+  ...(c.contact.email.value ? { email: c.contact.email.value } : {}),
+  ...(c.contact.phone.value ? { telephone: c.contact.phone.value } : {}),
+};
+---
+<title>{c.meta.title}</title>
+<meta name="description" content={c.meta.description} />
+<link rel="canonical" href={url} />
+{LANG_CODES.map((code) => <link rel="alternate" hreflang={LANGS[code].lang} href={`${site}/${code}/`} />)}
+<link rel="alternate" hreflang="x-default" href={`${site}/${DEFAULT_LANG}/`} />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Sofood Kaz" />
+<meta property="og:title" content={c.meta.title} />
+<meta property="og:description" content={c.meta.description} />
+<meta property="og:url" content={url} />
+<meta property="og:locale" content={LANGS[lang].ogLocale} />
+{LANG_CODES.filter((code) => code !== lang).map((code) => <meta property="og:locale:alternate" content={LANGS[code].ogLocale} />)}
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={c.meta.ogAlt} />
+<meta name="twitter:card" content="summary_large_image" />
+
+<script type="application/ld+json" set:html={JSON.stringify(org)} />

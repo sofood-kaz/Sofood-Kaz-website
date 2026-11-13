@@ -1,0 +1,45 @@
+---
+import type { Content } from '../i18n';
+interface Props { c: Content }
+const { c } = Astro.props;
+const year = new Date().getFullYear();
+---
+<footer class="site-footer band-ink on-dark">
+  <div class="container footer-inner">
+    <p class="footer-brand"><span class="footer-name">{c.brand.name}</span> <span>· {c.brand.tagline}</span></p>
+    <p class="footer-legal">
+      <span>© {year} {c.footer.company}</span>
+      <span>{c.footer.bin}</span>
+      <span>{c.footer.address}</span>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer { padding: 96px 0 48px; }
+  .footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(246, 243, 236, 0.2);
+    font-size: 14px;
+    color: var(--on-ink-3);
+  }
+  .footer-name {
+    font-family: var(--serif);
+    font-size: 20px;
+    color: var(--on-dark);
+  }
+  .footer-legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 20px;
+  }
+  @media (max-width: 900px) {
+    .site-footer { padding: 64px 0 40px; }
+    .footer-legal { flex-direction: column; }
+  }
+</style>

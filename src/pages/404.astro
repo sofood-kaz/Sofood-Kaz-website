@@ -1,0 +1,56 @@
+---
+import '../styles/tokens.css';
+import '../styles/base.css';
+import '../styles/layout.css';
+import { LANGS, LANG_CODES, t } from '../i18n';
+---
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>404 · Sofood Kaz</title>
+    <meta name="description" content="Страница не найдена. Бет табылмады. Page not found." />
+    <meta name="theme-color" content="#F6F3EC" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <main class="container nf">
+      <p class="nf-brand">Sofood Kaz</p>
+      <p class="label">404</p>
+      <ul class="rows nf-list">
+        {LANG_CODES.map((code) => {
+          const c = t(code);
+          return (
+            <li lang={LANGS[code].lang}>
+              <h1 class="nf-title">{c.notFound.title}</h1>
+              <p>{c.notFound.text} <a href={`/${code}/`}>{c.notFound.back}</a></p>
+            </li>
+          );
+        })}
+      </ul>
+    </main>
+  </body>
+</html>
+
+<style>
+  .nf { padding-block: 64px 96px; }
+  .nf-brand {
+    margin-bottom: 64px;
+    font-family: var(--serif);
+    font-size: 30px;
+    color: var(--green);
+  }
+  .nf-list { margin-top: 20px; }
+  .nf-list li { padding: 28px 0; }
+  .nf-title {
+    font-size: var(--fs-h2);
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .nf-list a {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+  }
+</style>

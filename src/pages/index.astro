@@ -1,0 +1,33 @@
+---
+/*
+ * "/" sends visitors to the Russian home page. On hosts that read
+ * public/_redirects (Netlify, Cloudflare Pages) this is a real 301; this
+ * page is the fallback for plain static hosting.
+ */
+import { LANGS, LANG_CODES, DEFAULT_LANG } from '../i18n';
+const site = Astro.site!.origin;
+const target = `/${DEFAULT_LANG}/`;
+---
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sofood Kaz</title>
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={`${site}${target}`} />
+    {LANG_CODES.map((code) => <link rel="alternate" hreflang={LANGS[code].lang} href={`${site}/${code}/`} />)}
+    <link rel="alternate" hreflang="x-default" href={`${site}${target}`} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <style>
+      body { margin: 0; padding: 40px 20px; background: #F6F3EC; color: #1B211D; font: 17px/1.55 system-ui, sans-serif; }
+      a { color: #0A5E33; margin-right: 16px; }
+    </style>
+  </head>
+  <body>
+    <p>Sofood Kaz</p>
+    <p>
+      {LANG_CODES.map((code) => <a href={`/${code}/`} hreflang={LANGS[code].lang} lang={LANGS[code].lang}>{LANGS[code].name}</a>)}
+    </p>
+  </body>
+</html>

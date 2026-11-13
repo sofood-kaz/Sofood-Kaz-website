@@ -1,0 +1,41 @@
+---
+import { LANGS, LANG_CODES, type Lang } from '../i18n';
+interface Props { lang: Lang; label: string }
+const { lang, label } = Astro.props;
+---
+<ul class="langs" aria-label={label}>
+  {LANG_CODES.map((code) => (
+    <li>
+      <a href={`/${code}/`} hreflang={LANGS[code].lang} lang={LANGS[code].lang} data-lang-link
+        aria-current={code === lang ? 'page' : undefined} title={LANGS[code].name}>
+        {LANGS[code].label}<span class="visually-hidden"> {LANGS[code].name}</span>
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .langs {
+    display: flex;
+    gap: 2px;
+    font-size: var(--fs-label);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .langs a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 8px;
+    color: var(--ink-3);
+    border-bottom: 2px solid transparent;
+  }
+  .langs a:hover { color: var(--ink); text-decoration: none; }
+  /* Screen-reader-only language names use a system font so the page does
+     not download extra web-font subsets just for hidden text. */
+  .langs .visually-hidden { font-family: system-ui, sans-serif; }
+  .langs a[aria-current='page'] {
+    color: var(--ink);
+    border-bottom-color: var(--green);
+  }
+</style>
