@@ -23,3 +23,8 @@ function byName(map: Record<string, Mod>, name: string): ImageMetadata | undefin
 
 export const findPhoto = (name: string) => byName(photos, name);
 export const findPortrait = (id: string) => byName(portraits, id);
+
+const brands = import.meta.glob<Mod>('/src/assets/brands/*.{jpg,jpeg,png,webp,avif,svg}', { eager: true });
+const history = import.meta.glob<Mod>('/src/assets/history/*.{jpg,jpeg,png,webp,avif}', { eager: true });
+export const findBrand = (id: string) => byName(brands, id);
+export const findHistory = (name: string) => byName(history, name);

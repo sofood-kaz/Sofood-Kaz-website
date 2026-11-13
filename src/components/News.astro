@@ -1,15 +1,17 @@
 ---
 import news from '../content/news.json';
 import { LANGS, formatDate, type Content, type Lang } from '../i18n';
-interface Props { c: Content; lang: Lang }
-const { c, lang } = Astro.props;
-const items = [...news].sort((a, b) => b.date.localeCompare(a.date));
-type L = keyof typeof c.news.languages;
+interface Props { c: Content; lang: Lang; title: string; limit?: number }
+const { c, lang, title, limit } = Astro.props;
+const items = [...news].sort((a, b) => b.date.localeCompare(a.date)).slice(0, limit ?? news.length);
+type L = keyof typeof c.press.languages;
 ---
-<section id="news" class="section" aria-labelledby="news-title">
+<section class="section" aria-labelledby="news-title">
   <div class="container">
-    <p class="label">{c.news.label}</p>
-    <h2 id="news-title" class="h2 news-title">{c.news.title}</h2>
+    <div class="news-head">
+      <h2 id="news-title" class="h2 news-title">{title}</h2>
+      <slot />
+    </div>
     <ul class="rows">
       {items.map((n) => (
         <li data-reveal>
@@ -18,8 +20,8 @@ type L = keyof typeof c.news.languages;
             <span class="headline">{n.title[lang]}</span>
             <span class="source">
               {n.source[lang]}
-              {n.articleLang !== lang && <span class="lang-note">{c.news.languages[n.articleLang as L]}</span>}
-              <span class="visually-hidden">, {c.news.external}</span>
+              {n.articleLang !== lang && <span class="lang-note">{c.press.languages[n.articleLang as L]}</span>}
+              <span class="visually-hidden">, {c.press.external}</span>
             </span>
           </a>
         </li>
@@ -29,7 +31,15 @@ type L = keyof typeof c.news.languages;
 </section>
 
 <style>
-  .news-title { margin-bottom: 40px; }
+  .news-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: end;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .news-title { margin-top: 0; }
   .row {
     display: grid;
     grid-template-columns: 160px minmax(0, 1fr) 220px;
@@ -44,26 +54,11 @@ type L = keyof typeof c.news.languages;
     text-decoration-thickness: 1px;
   }
   .date { color: var(--ink-3); }
-  .headline {
-    font-size: 20px;
-    line-height: 1.35;
-  }
-  .source {
-    text-align: right;
-    font-size: var(--fs-small);
-    color: var(--ink-3);
-  }
-  .lang-note {
-    display: block;
-    font-size: var(--fs-label);
-  }
+  .headline { font-size: 20px; line-height: 1.35; }
+  .source { text-align: right; font-size: var(--fs-small); color: var(--ink-3); }
+  .lang-note { display: block; font-size: var(--fs-label); }
   @media (max-width: 900px) {
-    .news-title { margin-bottom: 28px; }
-    .row {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 6px;
-      padding: 20px 0;
-    }
+    .row { grid-template-columns: minmax(0, 1fr); gap: 6px; padding: 20px 0; }
     .source { text-align: left; }
     .lang-note { display: inline; margin-left: 6px; }
     .headline { font-size: 18px; }

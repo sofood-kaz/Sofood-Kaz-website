@@ -1,19 +1,20 @@
 ---
 import Photo from './Photo.astro';
 import { findPhoto } from '../lib/images';
-import type { Content } from '../i18n';
-interface Props { c: Content }
+import { pagePath, type Content, type Lang } from '../i18n';
+interface Props { c: Content; lang: Lang }
 const { hero } = Astro.props.c;
+const { lang } = Astro.props;
 ---
-<section class="hero" id="top" aria-labelledby="hero-title">
+<section class="hero" aria-labelledby="hero-title">
   <div class="container grid hero-grid">
     <div class="span-7 hero-text">
       <p class="hero-kicker">{hero.kicker}</p>
       <h1 id="hero-title" class="hero-title">{hero.title}</h1>
       <p class="hero-lead">{hero.lead}</p>
       <div class="hero-actions">
-        <a class="button" href="#project">{hero.cta}</a>
-        <a class="text-link" href="#contact">{hero.link}</a>
+        <a class="button" href={pagePath(lang, 'factory')}>{hero.cta}</a>
+        <a class="text-link" href={pagePath(lang, 'contact')}>{hero.link}</a>
       </div>
     </div>
     <div class="span-5">

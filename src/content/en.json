@@ -1,8 +1,48 @@
 {
   "meta": {
-    "title": "Sofood Kaz — dairy processing complex in Konaev, part of Solico Group",
-    "description": "Sofood Kaz is building a dairy processing complex in Konaev, Kazakhstan: a cheese plant with 40,920 tonnes of products a year, 400 jobs and milk from farms in the Almaty and Zhetisu regions. Part of Solico Group.",
     "ogAlt": "Sofood Kaz: milk from Almaty and Zhetisu farms, cheese made in Konaev"
+  },
+  "pages": {
+    "home": {
+      "nav": "Home",
+      "title": "Sofood Kaz — dairy processing complex in Konaev, part of Solico Group",
+      "description": "Sofood Kaz is building a dairy processing complex in Konaev, Kazakhstan: a cheese plant with 40,920 tonnes of products a year, 400 jobs and milk from farms in the Almaty and Zhetisu regions. Part of Solico Group."
+    },
+    "solico": {
+      "nav": "About Solico",
+      "title": "About Solico Group — Sofood Kaz",
+      "description": "Solico Group is a multinational food company: 15+ factories, 25,000+ employees and 400+ brands in more than 10 countries. Founded by Gholamali Soleimani. Its best-known brand is Kalleh."
+    },
+    "history": {
+      "nav": "History",
+      "title": "History of Solico Group — Sofood Kaz",
+      "description": "The history of Solico Group since 1971: from a small workshop to dairy and beverage factories, its own distribution network and the complex under construction in Konaev."
+    },
+    "team": {
+      "nav": "Our team",
+      "title": "Our team — Sofood Kaz",
+      "description": "The Sofood Kaz management in Kazakhstan: Director Kurmangali Amankossov, Investment Director Murat Jakishev and the project team."
+    },
+    "factory": {
+      "nav": "The factory",
+      "title": "About the factory in Konaev — Sofood Kaz",
+      "description": "The Sofood Kaz cheese plant in Konaev: 40,920 tonnes of products a year, 91,700 tonnes of local milk, 400 jobs. What is being built, the phases of the complex and where the project stands."
+    },
+    "careers": {
+      "nav": "Careers",
+      "title": "Careers — Sofood Kaz",
+      "description": "Working at Sofood Kaz: vacancies at the dairy complex in Konaev will be published on this page."
+    },
+    "press": {
+      "nav": "Press",
+      "title": "Press centre — Sofood Kaz",
+      "description": "Sofood Kaz press releases and press coverage of the dairy complex under construction in Konaev."
+    },
+    "contact": {
+      "nav": "Contact",
+      "title": "Contact — Sofood Kaz",
+      "description": "Contact Sofood Kaz LLP: email, phone, the site address in Konaev and the office address in Almaty."
+    }
   },
   "brand": {
     "name": "Sofood Kaz",
@@ -14,19 +54,13 @@
     "menu": "Menu",
     "close": "Close",
     "langLabel": "Site language",
-    "items": [
-      { "href": "#project", "label": "The project" },
-      { "href": "#solico", "label": "Solico Group" },
-      { "href": "#team", "label": "Team" },
-      { "href": "#news", "label": "News" },
-      { "href": "#contact", "label": "Contact" }
-    ]
+    "more": "Read more"
   },
   "hero": {
     "kicker": "Agro-industrial complex · Konaev, Almaty region",
     "title": "Milk from Almaty and Zhetisu farms. Cheese made in Konaev.",
     "lead": "Sofood Kaz is building a dairy processing complex in Konaev. The cheese plant comes first, followed by three more production sites and a packaging area. The project is backed by Solico Group, the food holding behind the Kalleh brand.",
-    "cta": "See the project",
+    "cta": "About the factory",
     "link": "Contact the team",
     "photo": {
       "file": "hero",
@@ -44,9 +78,91 @@
       { "value": "23%", "text": "of phase one built (October 2026)" }
     ]
   },
-  "project": {
-    "label": "01 — The project",
-    "title": "What we are building in Konaev",
+  "home": {
+    "indexLabel": "On this site",
+    "index": [
+      { "page": "factory", "title": "The factory", "text": "What is being built in Konaev, the phases of the complex and where the project stands." },
+      { "page": "solico", "title": "About Solico Group", "text": "Who stands behind the project: the group, its founder and its brands." },
+      { "page": "history", "title": "History", "text": "The group's path from 1971 to construction in Konaev." },
+      { "page": "team", "title": "Our team", "text": "Who runs the project in Kazakhstan." },
+      { "page": "careers", "title": "Careers", "text": "Working at the dairy complex." },
+      { "page": "press", "title": "Press", "text": "Press releases and coverage of the project." }
+    ],
+    "pressTitle": "Latest coverage",
+    "pressLink": "All items"
+  },
+  "solico": {
+    "label": "About the group",
+    "title": "Solico Group",
+    "lead": "A multinational food company that started with one workshop in 1971.",
+    "storyTitle": "From raw materials to the shop shelf",
+    "paragraphs": [
+      "Solico Group produces, distributes and sells food in more than 10 countries: dairy, ice cream, ready meals, beverages and snacks, for retail and food service. It is one of the largest food processing operations in the Middle East.",
+      "The group runs its own supply chain: raw materials (milk is the largest), transport, production and direct distribution to shops. Its global headquarters is in Dubai, UAE, with regional offices in Tehran, Erbil, Baghdad, Frankfurt, Los Angeles, Izmir and Kabul.",
+      "Sofood Kaz is the group's production company in Kazakhstan."
+    ],
+    "factsLabel": "Solico Group in figures",
+    "facts": [
+      { "label": "Factories", "value": "15+" },
+      { "label": "Employees", "value": "25,000+" },
+      { "label": "Countries", "value": "10+" },
+      { "label": "Brands", "value": "400+" },
+      { "label": "Founded", "value": "1971" }
+    ],
+    "source": "Source: solico-group.com, May 2026",
+    "founder": {
+      "label": "Founder",
+      "name": "Gholamali Soleimani",
+      "paragraphs": [
+        "Gholamali Soleimani was born in 1946 in Amol, Iran.",
+        "He started with a small hamburger workshop. He then built up the meat and dairy businesses, followed by many other food categories.",
+        "Today the group he founded works in more than 10 countries."
+      ],
+      "photoAlt": "Gholamali Soleimani, founder of Solico Group",
+      "caption": "Gholamali Soleimani, founder of Solico Group"
+    },
+    "historyLink": {
+      "label": "History",
+      "title": "Fifty-five years from one workshop to a multinational group",
+      "link": "See the history"
+    }
+  },
+  "brands": {
+    "label": "Brands",
+    "title": "Solico Group brands",
+    "text": "The group has more than 400 brands. The best known, Kalleh, is already sold in Kazakhstan.",
+    "pause": "Pause the moving row",
+    "play": "Start the moving row",
+    "listLabel": "Solico Group brands"
+  },
+  "history": {
+    "label": "History",
+    "title": "History of Solico Group",
+    "lead": "From one workshop in 1971 to the complex in Konaev.",
+    "items": [
+      { "year": "1971", "image": "1971", "title": "The business starts", "text": "Gholamali Soleimani opens a small hamburger workshop. It is the start of the group's meat business." },
+      { "year": "1990", "image": "1990", "title": "Dairy factory", "text": "The group opens a dairy factory. Milk becomes its main raw material." },
+      { "year": "2006", "image": "2006", "title": "Beverage factory", "text": "Beverages join the meat and dairy products." },
+      { "year": "2009", "image": "2009", "title": "Capillary distribution", "text": "The group builds its own delivery network, which takes products directly to shops." },
+      { "year": "2015", "image": "2015", "title": "One management system", "text": "An ERP system (the TAMIZ project) is rolled out across the group's companies." },
+      { "year": "2025", "image": "", "title": "Plans in Kazakhstan", "text": "Solico Group announces plans for a cheese plant in Konaev." },
+      { "year": "2026", "image": "", "title": "Construction in Konaev", "text": "Sofood Kaz builds phase one of the complex. In October the plans are presented to the Prime Minister at KGIR-2026." }
+    ],
+    "outro": "Over these years the group has grown to more than 400 brands."
+  },
+  "team": {
+    "label": "Our team",
+    "title": "The people behind the project",
+    "lead": "The Sofood Kaz management in Kazakhstan.",
+    "othersTitle": "Project team",
+    "intro": "More team members will be added.",
+    "photo": "Photo: portrait"
+  },
+  "factory": {
+    "label": "The factory",
+    "title": "The dairy complex in Konaev",
+    "lead": "The cheese plant is phase one. Three more production sites and a packaging area follow.",
+    "buildTitle": "What we are building",
     "paragraphs": [
       "Phase one is a cheese plant with a capacity of 40,920 tonnes of products a year. It will make cream, hard and brined cheeses, ultrafiltered cheese, cream cheese, labneh and mozzarella.",
       "The full complex is phase one plus three more production sites and a packaging area of about 4 hectares. Central and technical warehouses and the utilities sit on the same site.",
@@ -71,82 +187,47 @@
       "text": "Energy for the complex is planned to come from Sonergy, the hybrid power company of Solico Group.",
       "linkText": "sonergy.kz",
       "url": "https://sonergy.kz/"
+    },
+    "chain": {
+      "label": "From farm to shelf",
+      "title": "Local milk, processing in Konaev, markets across the region",
+      "columns": [
+        { "kicker": "Source", "title": "Farms in the Almaty and Zhetisu regions", "text": "About 91,700 tonnes of raw milk a year, mainly from farms in the Almaty and Zhetisu regions." },
+        { "kicker": "Processing", "title": "The Konaev complex", "text": "The cheese plant first, then yogurt, sour cream and butter production, warehouses and packaging on one site." },
+        { "kicker": "Markets", "title": "Kazakhstan and export", "text": "About half of the output is for the Kazakhstan market. Up to 50% is planned for export to Central Asia, Russia and Azerbaijan." }
+      ]
+    },
+    "progress": {
+      "label": "Phase one built",
+      "value": 23,
+      "text": "Cheese plant, October 2026"
+    },
+    "timeline": {
+      "label": "Timeline",
+      "title": "Where the project stands",
+      "status": { "done": "Done", "now": "Now", "planned": "Planned" },
+      "items": [
+        { "date": "October 2025", "text": "Solico Group announces plans for a cheese plant in Konaev", "status": "done" },
+        { "date": "[TO CONFIRM]", "text": "Investment agreement signed with the Ministry of Agriculture of Kazakhstan", "status": "done" },
+        { "date": "[TO CONFIRM]", "text": "Construction of phase one, the cheese plant, begins", "status": "done" },
+        { "date": "22.10.2026", "text": "Plans for the complex presented to the Prime Minister at KGIR-2026", "status": "done" },
+        { "date": "October 2026", "text": "Phase one construction: 23% complete", "status": "now" },
+        { "date": "[TO CONFIRM]", "text": "Cheese plant starts production", "status": "planned" },
+        { "date": "[TO CONFIRM]", "text": "Three more production sites and the packaging area", "status": "planned" }
+      ]
     }
   },
-  "chain": {
-    "label": "02 — From farm to shelf",
-    "title": "Local milk, processing in Konaev, markets across the region",
-    "columns": [
-      {
-        "kicker": "Source",
-        "title": "Farms in the Almaty and Zhetisu regions",
-        "text": "About 91,700 tonnes of raw milk a year, mainly from farms in the Almaty and Zhetisu regions."
-      },
-      {
-        "kicker": "Processing",
-        "title": "The Konaev complex",
-        "text": "The cheese plant first, then yogurt, sour cream and butter production, warehouses and packaging on one site."
-      },
-      {
-        "kicker": "Markets",
-        "title": "Kazakhstan and export",
-        "text": "About half of the output is for the Kazakhstan market. Up to 50% is planned for export to Central Asia, Russia and Azerbaijan."
-      }
-    ]
+  "careers": {
+    "label": "Careers",
+    "title": "Working at Sofood Kaz",
+    "lead": "Vacancies will be published on this page."
   },
-  "solico": {
-    "label": "03 — Solico Group",
-    "title": "A food company that started with one workshop in 1971",
-    "paragraphs": [
-      "Solico Group produces, distributes and sells food in more than 10 countries: dairy, ice cream, ready meals, beverages and snacks, for retail and food service. It is one of the largest food processing operations in the Middle East.",
-      "The group runs its own supply chain: raw materials (milk is the largest), transport, production and direct distribution to shops. Its global headquarters is in Dubai, UAE.",
-      "Its best-known brand, Kalleh, is already sold in Kazakhstan. Sofood Kaz is the group's production company in Kazakhstan."
-    ],
-    "founder": "Founder: Gholamali Soleimani, born in 1946 in Amol, Iran. He started with a small hamburger workshop and grew the business into meat, dairy and many other food categories.",
-    "factsLabel": "Solico Group in figures",
-    "facts": [
-      { "label": "Factories", "value": "15+" },
-      { "label": "Employees", "value": "25,000+" },
-      { "label": "Countries", "value": "10+" },
-      { "label": "Brands", "value": "400+" },
-      { "label": "Founded", "value": "1971" }
-    ],
-    "source": "Source: solico-group.com, May 2026",
-    "historyLabel": "Group history",
-    "history": [
-      { "year": "1971", "text": "Business starts" },
-      { "year": "1990", "text": "Dairy factory" },
-      { "year": "2006", "text": "Beverage factory" },
-      { "year": "2009", "text": "Capillary distribution network" },
-      { "year": "2015", "text": "ERP roll-out (TAMIZ project)" },
-      { "year": "2026", "text": "Construction in Konaev" }
-    ],
-    "logoSolico": "Solico Group",
-    "logoKalleh": "Kalleh"
-  },
-  "timeline": {
-    "label": "04 — Timeline",
-    "title": "Where the project stands",
-    "status": { "done": "Done", "now": "Now", "planned": "Planned" },
-    "items": [
-      { "date": "October 2025", "text": "Solico Group announces plans for a cheese plant in Konaev", "status": "done" },
-      { "date": "[TO CONFIRM]", "text": "Investment agreement signed with the Ministry of Agriculture of Kazakhstan", "status": "done" },
-      { "date": "[TO CONFIRM]", "text": "Construction of phase one, the cheese plant, begins", "status": "done" },
-      { "date": "22.10.2026", "text": "Plans for the complex presented to the Prime Minister at KGIR-2026", "status": "done" },
-      { "date": "October 2026", "text": "Phase one construction: 23% complete", "status": "now" },
-      { "date": "[TO CONFIRM]", "text": "Cheese plant starts production", "status": "planned" },
-      { "date": "[TO CONFIRM]", "text": "Three more production sites and the packaging area", "status": "planned" }
-    ]
-  },
-  "team": {
-    "label": "05 — Team",
-    "title": "The people behind the project",
-    "intro": "More team members will be added.",
-    "photo": "Photo: portrait"
-  },
-  "news": {
-    "label": "06 — News",
-    "title": "In the press",
+  "press": {
+    "label": "Press centre",
+    "title": "Press releases and coverage",
+    "releasesTitle": "Press releases",
+    "releasesEmpty": "Press releases will be published on this page.",
+    "newsTitle": "In the press",
     "external": "opens on the publisher's site",
     "languages": { "ru": "in Russian", "kz": "in Kazakh", "en": "in English" }
   },

@@ -3,13 +3,12 @@ import Photo from './Photo.astro';
 import { findPhoto } from '../lib/images';
 import type { Content } from '../i18n';
 interface Props { c: Content }
-const { project } = Astro.props.c;
+const project = Astro.props.c.factory;
 ---
 <section id="project" class="section band-white" aria-labelledby="project-title">
   <div class="container grid">
     <div class="span-4" data-reveal>
-      <p class="label">{project.label}</p>
-      <h2 id="project-title" class="h2">{project.title}</h2>
+      <h2 id="project-title" class="h2 build-title">{project.buildTitle}</h2>
       <div class="prose project-text">
         {project.paragraphs.map((p) => <p>{p}</p>)}
       </div>
@@ -34,6 +33,7 @@ const { project } = Astro.props.c;
 </section>
 
 <style>
+  .build-title { margin-top: 0; }
   .project-text { margin-top: 24px; }
   .list-label {
     margin-top: 40px;

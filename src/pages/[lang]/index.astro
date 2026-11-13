@@ -2,14 +2,10 @@
 import Base from '../../layouts/Base.astro';
 import Hero from '../../components/Hero.astro';
 import Figures from '../../components/Figures.astro';
-import Project from '../../components/Project.astro';
-import Chain from '../../components/Chain.astro';
-import Solico from '../../components/Solico.astro';
-import Timeline from '../../components/Timeline.astro';
-import Team from '../../components/Team.astro';
+import HomeIndex from '../../components/HomeIndex.astro';
 import News from '../../components/News.astro';
-import Contact from '../../components/Contact.astro';
-import { LANG_CODES, t, type Lang } from '../../i18n';
+import Arrow from '../../components/Arrow.astro';
+import { LANG_CODES, pagePath, t, type Lang } from '../../i18n';
 
 export function getStaticPaths() {
   return LANG_CODES.map((lang) => ({ params: { lang } }));
@@ -18,14 +14,11 @@ export function getStaticPaths() {
 const lang = Astro.params.lang as Lang;
 const c = t(lang);
 ---
-<Base lang={lang}>
-  <Hero c={c} />
+<Base lang={lang} page="home">
+  <Hero c={c} lang={lang} />
   <Figures c={c} />
-  <Project c={c} />
-  <Chain c={c} />
-  <Solico c={c} />
-  <Timeline c={c} />
-  <Team c={c} lang={lang} />
-  <News c={c} lang={lang} />
-  <Contact c={c} />
+  <HomeIndex c={c} lang={lang} />
+  <News c={c} lang={lang} title={c.home.pressTitle} limit={3}>
+    <a class="more-link" href={pagePath(lang, 'press')}>{c.home.pressLink}<Arrow /></a>
+  </News>
 </Base>

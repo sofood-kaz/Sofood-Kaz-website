@@ -1,0 +1,167 @@
+---
+/*
+ * History as a scroll timeline. The big year on the left stays in place and
+ * changes as the events on the right scroll past; a green line fills along
+ * the list. The page scrolls normally. Without JavaScript, or with "reduce
+ * motion", every event simply shows its own year.
+ */
+import { Image } from 'astro:assets';
+import { findHistory } from '../lib/images';
+import type { Content } from '../i18n';
+interface Props { c: Content }
+const { history } = Astro.props.c;
+const items = history.items.map((x) => ({ ...x, img: x.image ? findHistory(x.image) : undefined }));
+---
+<section class="history" aria-label={history.title} data-history>
+  <div class="container grid">
+    <div class="span-5 year-col" aria-hidden="true">
+      <div class="year-sticky">
+        <span class="year-big" data-history-year>{items[0].year}</span>
+      </div>
+    </div>
+    <div class="span-7">
+      <ol class="events">
+        <li class="line" aria-hidden="true"><span class="line-fill"></span></li>
+        {items.map((x, i) => (
+          <li class:list={['event', { 'is-active': i === 0 }]} data-year={x.year}>
+            <span class="dot" aria-hidden="true"></span>
+            <div class="event-body">
+              <p class="event-year">{x.year}</p>
+              <h2 class="event-title">{x.title}</h2>
+              <p class="event-text">{x.text}</p>
+            </div>
+            {x.img && <Image src={x.img} alt="" width={132} height={132} format="webp" loading="lazy" class="event-img" />}
+          </li>
+        ))}
+      </ol>
+      <p class="outro">{history.outro}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .history { padding-bottom: 120px; }
+  .year-sticky {
+    position: sticky;
+    top: calc(var(--header-h) + 12vh);
+    padding-bottom: 80px;
+  }
+  .year-big {
+    display: block;
+    font-family: var(--serif);
+    font-size: clamp(7rem, 2rem + 13vw, 13.5rem);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    color: var(--green);
+    font-variant-numeric: lining-nums;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .year-big.is-swapping { opacity: 0; transform: translateY(14px); }
+
+  .events {
+    position: relative;
+    padding-left: 44px;
+  }
+  .line {
+    position: absolute;
+    left: 5px;
+    top: 14px;
+    bottom: 14px;
+    width: 1px;
+    background: var(--rule);
+  }
+  .line-fill {
+    position: absolute;
+    inset: 0;
+    width: 3px;
+    left: -1px;
+    background: var(--green);
+    transform: scaleY(var(--fill, 1));
+    transform-origin: top;
+  }
+  .event {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 32px;
+    padding-block: 56px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .event:nth-child(2) { padding-top: 0; }
+  .dot {
+    position: absolute;
+    left: -44px;
+    top: 64px;
+    width: 11px;
+    height: 11px;
+    background: var(--paper);
+    border: 2px solid var(--rule);
+    border-radius: 50%;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+  .event:nth-child(2) .dot { top: 8px; }
+  .event-year {
+    font-size: var(--fs-label);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    color: var(--green);
+  }
+  .event-title {
+    margin-top: 10px;
+    font-size: clamp(1.75rem, 1.3rem + 1.4vw, 2.5rem);
+    line-height: 1.1;
+  }
+  .event-text {
+    max-width: 460px;
+    margin-top: 14px;
+    color: var(--ink-2);
+  }
+  .event :global(.event-img) {
+    flex: none;
+    width: 132px;
+    height: 132px;
+    border-radius: 50%;
+    background: var(--placeholder);
+  }
+  .outro {
+    margin-top: 56px;
+    padding-left: 44px;
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+    line-height: 1.25;
+  }
+
+  /* With JavaScript and motion allowed, photos of events that are not in
+     the middle of the screen are faded. Text always keeps full contrast. */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(html.js) .event :global(.event-img) {
+      opacity: 0.35;
+      filter: grayscale(1);
+      transition: opacity 0.4s ease, filter 0.4s ease;
+    }
+    :global(html.js) .event.is-active :global(.event-img),
+    :global(html.js) .event.is-past :global(.event-img) { opacity: 1; filter: none; }
+    :global(html.js) .event .event-title { transition: color 0.3s ease; }
+    :global(html.js) .event.is-active .event-title { color: var(--green); }
+  }
+  .event.is-active .dot,
+  .event.is-past .dot { border-color: var(--green); background: var(--green); }
+
+  @media (max-width: 900px) {
+    .history { padding-bottom: 72px; }
+    .year-col { display: none; }
+    .events { padding-left: 28px; }
+    .dot { left: -28px; top: 48px; }
+    .event { padding-block: 40px; gap: 16px; }
+    .event :global(.event-img) { width: 84px; height: 84px; }
+    .event-year {
+      font-family: var(--serif);
+      font-size: 44px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .outro { padding-left: 28px; margin-top: 40px; }
+  }
+</style>

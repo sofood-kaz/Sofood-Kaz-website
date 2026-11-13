@@ -1,11 +1,12 @@
 ---
-import { LANGS, LANG_CODES, DEFAULT_LANG, type Content, type Lang } from '../i18n';
-interface Props { lang: Lang; c: Content }
-const { lang, c } = Astro.props;
+import { LANGS, LANG_CODES, DEFAULT_LANG, pagePath, type Content, type Lang, type PageKey } from '../i18n';
+interface Props { lang: Lang; c: Content; page: PageKey }
+const { lang, c, page } = Astro.props;
 
 const site = Astro.site!.origin;
-const url = `${site}/${lang}/`;
+const url = site + pagePath(lang, page);
 const ogImage = `${site}/og/og-${lang}.png`;
+const meta = c.pages[page];
 
 const org = {
   '@context': 'https://schema.org',
@@ -28,21 +29,22 @@ const org = {
     '@type': 'Organization',
     name: 'Solico Group',
     url: 'https://solico-group.com/',
+    founder: { '@type': 'Person', name: 'Gholamali Soleimani' },
   },
   ...(c.contact.email.value ? { email: c.contact.email.value } : {}),
   ...(c.contact.phone.value ? { telephone: c.contact.phone.value } : {}),
 };
 ---
-<title>{c.meta.title}</title>
-<meta name="description" content={c.meta.description} />
+<title>{meta.title}</title>
+<meta name="description" content={meta.description} />
 <link rel="canonical" href={url} />
-{LANG_CODES.map((code) => <link rel="alternate" hreflang={LANGS[code].lang} href={`${site}/${code}/`} />)}
-<link rel="alternate" hreflang="x-default" href={`${site}/${DEFAULT_LANG}/`} />
+{LANG_CODES.map((code) => <link rel="alternate" hreflang={LANGS[code].lang} href={site + pagePath(code, page)} />)}
+<link rel="alternate" hreflang="x-default" href={site + pagePath(DEFAULT_LANG, page)} />
 
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Sofood Kaz" />
-<meta property="og:title" content={c.meta.title} />
-<meta property="og:description" content={c.meta.description} />
+<meta property="og:title" content={meta.title} />
+<meta property="og:description" content={meta.description} />
 <meta property="og:url" content={url} />
 <meta property="og:locale" content={LANGS[lang].ogLocale} />
 {LANG_CODES.filter((code) => code !== lang).map((code) => <meta property="og:locale:alternate" content={LANGS[code].ogLocale} />)}
@@ -52,4 +54,4 @@ const org = {
 <meta property="og:image:alt" content={c.meta.ogAlt} />
 <meta name="twitter:card" content="summary_large_image" />
 
-<script type="application/ld+json" set:html={JSON.stringify(org)} />
+{page === 'home' && <script type="application/ld+json" set:html={JSON.stringify(org)} />}

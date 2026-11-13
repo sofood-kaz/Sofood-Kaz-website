@@ -1,11 +1,18 @@
 ---
 import type { Content } from '../i18n';
 interface Props { c: Content }
-const { timeline } = Astro.props.c;
+const { timeline, progress } = Astro.props.c.factory;
 type Status = keyof typeof timeline.status;
 ---
-<section id="timeline" class="section" aria-labelledby="timeline-title">
+<section id="timeline" class="section band-white" aria-labelledby="timeline-title">
   <div class="container">
+    <div class="progress" data-reveal role="img" aria-label={`${progress.label}: ${progress.value}%. ${progress.text}`}>
+      <div class="progress-top" aria-hidden="true">
+        <span class="progress-value">{progress.value}%</span>
+        <span class="progress-text"><strong>{progress.label}</strong><br />{progress.text}</span>
+      </div>
+      <div class="bar" aria-hidden="true"><span class="bar-fill" style={`--value: ${progress.value}%`}></span></div>
+    </div>
     <p class="label">{timeline.label}</p>
     <h2 id="timeline-title" class="h2 timeline-title">{timeline.title}</h2>
     <ol class="rows timeline">
@@ -21,6 +28,36 @@ type Status = keyof typeof timeline.status;
 </section>
 
 <style>
+  .progress { margin-bottom: 88px; }
+  .progress-top {
+    display: flex;
+    align-items: flex-end;
+    gap: 24px;
+  }
+  .progress-value {
+    font-family: var(--serif);
+    font-size: clamp(4.5rem, 3rem + 6vw, 8rem);
+    line-height: 0.9;
+    color: var(--green);
+  }
+  .progress-text { padding-bottom: 6px; color: var(--ink-2); }
+  .progress-text strong { font-weight: 600; color: var(--ink); }
+  .bar {
+    height: 10px;
+    margin-top: 24px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+  }
+  .bar-fill {
+    display: block;
+    height: 100%;
+    width: var(--value);
+    background: var(--green);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    :global(html.js) .progress .bar-fill { width: 0; transition: width 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s; }
+    :global(html.js) .progress.is-visible .bar-fill { width: var(--value); }
+  }
   .timeline-title { margin-bottom: 48px; }
   .row {
     display: grid;

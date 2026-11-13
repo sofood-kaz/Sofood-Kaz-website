@@ -1,7 +1,7 @@
 {
   "name": "sofoodkaz",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "module",
   "description": "Public website of Sofood Kaz LLP (sofoodkaz.kz)",
   "engines": {
@@ -14,7 +14,7 @@
     "fonts": "python scripts/subset_fonts.py",
     "og": "node scripts/og.mjs",
     "todo": "node scripts/todo.mjs",
-    "artifact": "node scripts/artifact.mjs"
+    "preview:export": "node scripts/preview.mjs"
   },
   "dependencies": {
     "astro": "7.4.11",

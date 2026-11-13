@@ -1,24 +1,26 @@
 ---
 import LangSwitch from './LangSwitch.astro';
-import type { Content, Lang } from '../i18n';
-interface Props { lang: Lang; c: Content }
-const { lang, c } = Astro.props;
+import { PAGES, pagePath, type Content, type Lang, type PageKey } from '../i18n';
+interface Props { lang: Lang; c: Content; page: PageKey }
+const { lang, c, page } = Astro.props;
 ---
 <header class="site-header">
   <div class="container header-inner">
-    <a class="wordmark" href="#top">
+    <a class="wordmark" href={pagePath(lang, 'home')} aria-current={page === 'home' ? 'page' : undefined}>
       <span class="wordmark-name">{c.brand.name}</span>
       <span class="wordmark-tag">{c.brand.tagline}</span>
     </a>
 
     <nav class="site-nav" id="site-nav" aria-label={c.nav.label}>
       <ul>
-        {c.nav.items.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        {PAGES.map((p) => (
+          <li><a href={pagePath(lang, p)} aria-current={p === page ? 'page' : undefined}>{c.pages[p].nav}</a></li>
+        ))}
       </ul>
     </nav>
 
     <div class="header-tools">
-      <LangSwitch lang={lang} label={c.nav.langLabel} />
+      <LangSwitch lang={lang} page={page} label={c.nav.langLabel} />
       <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav"
         data-open={c.nav.menu} data-close={c.nav.close} hidden>
         <svg width="18" height="12" viewBox="0 0 18 12" aria-hidden="true" focusable="false">
@@ -28,6 +30,7 @@ const { lang, c } = Astro.props;
       </button>
     </div>
   </div>
+  <div class="read-progress" aria-hidden="true"></div>
 </header>
 
 <style>
@@ -37,6 +40,17 @@ const { lang, c } = Astro.props;
     z-index: 50;
     background: var(--paper);
     border-bottom: 1px solid var(--rule);
+    view-transition-name: site-header;
+  }
+  .read-progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    background: var(--green);
+    transform: scaleX(var(--read, 0));
+    transform-origin: left;
   }
   .header-inner {
     display: flex;
@@ -57,17 +71,19 @@ const { lang, c } = Astro.props;
     font-family: var(--serif);
     font-size: 30px;
     letter-spacing: -0.01em;
+    white-space: nowrap;
   }
   .wordmark-tag {
     margin-top: 6px;
     font-size: 12px;
     letter-spacing: 0.06em;
     color: var(--ink-3);
+    white-space: nowrap;
   }
   .site-nav ul {
     display: flex;
     flex-wrap: wrap;
-    gap: 4px 32px;
+    gap: 4px 26px;
     font-size: var(--fs-small);
     font-weight: 500;
   }
@@ -76,7 +92,10 @@ const { lang, c } = Astro.props;
     align-items: center;
     min-height: 40px;
     color: var(--ink);
+    border-bottom: 2px solid transparent;
   }
+  .site-nav a:hover { text-decoration: none; border-bottom-color: var(--rule); }
+  .site-nav a[aria-current='page'] { border-bottom-color: var(--green); }
   .header-tools {
     display: flex;
     align-items: center;
@@ -99,17 +118,14 @@ const { lang, c } = Astro.props;
   }
   .menu-button[aria-expanded='true'] { background: var(--ink); color: var(--on-dark); }
 
-  @media (min-width: 901px) {
+  @media (min-width: 1121px) {
     .menu-button { display: none; }
   }
 
-  @media (max-width: 900px) {
-    .wordmark-name { font-size: 24px; }
-    .wordmark-tag { font-size: 11px; }
-    .header-inner { gap: 12px; }
-    /* Without JavaScript the links simply wrap under the wordmark. */
-    .header-inner { flex-wrap: wrap; }
+  @media (max-width: 1120px) {
+    .header-inner { gap: 12px; flex-wrap: wrap; }
     :global(html.js) .header-inner { flex-wrap: nowrap; }
+    /* Without JavaScript the links simply wrap under the wordmark. */
     .site-nav { order: 3; width: 100%; }
     :global(html.js) .site-nav {
       display: none;
@@ -129,9 +145,13 @@ const { lang, c } = Astro.props;
       font-size: 20px;
     }
     :global(html.js) .site-nav li { border-bottom: 1px solid var(--rule); }
-    :global(html.js) .site-nav a { display: flex; min-height: 56px; }
+    :global(html.js) .site-nav a { display: flex; min-height: 56px; border-bottom: 0; }
+    :global(html.js) .site-nav a[aria-current='page'] { color: var(--green); }
   }
-
+  @media (max-width: 900px) {
+    .wordmark-name { font-size: 24px; }
+    .wordmark-tag { font-size: 11px; }
+  }
   @media (max-width: 380px) {
     /* Icon only on the narrowest phones; the text stays for screen readers. */
     .menu-button-text {

@@ -1,0 +1,144 @@
+---
+/*
+ * Brands band: a slow moving row of brand logos.
+ * - pauses on hover, on keyboard focus and with the pause button
+ * - with "reduce motion" switched on it becomes a still grid
+ * - `wipe` (history page) opens the band from the centre as it scrolls in
+ */
+import { Image } from 'astro:assets';
+import brands from '../content/brands.json';
+import { findBrand } from '../lib/images';
+import type { Content } from '../i18n';
+interface Props { c: Content; wipe?: boolean; intro?: string }
+const { c, wipe = false, intro } = Astro.props;
+const b = c.brands;
+const items = brands.map((x) => ({ ...x, image: findBrand(x.id) }));
+---
+<section class:list={['brands', 'band-green', 'on-dark', { wipe }]} aria-labelledby="brands-title" data-wipe={wipe ? '' : undefined}>
+  <div class="container brands-head">
+    <div>
+      <p class="label">{b.label}</p>
+      <h2 id="brands-title" class="brands-title">{b.title}</h2>
+    </div>
+    <p class="brands-text">{intro ?? b.text}</p>
+  </div>
+
+  <div class="marquee" data-marquee>
+    <ul class="track" aria-label={b.listLabel}>
+      {items.map((x) => (
+        <li>
+          {x.image
+            ? <Image src={x.image} alt={x.name} width={150} height={75} format="webp" loading="lazy" />
+            : <span class="name">{x.name}</span>}
+        </li>
+      ))}
+    </ul>
+    <ul class="track copy" aria-hidden="true">
+      {items.map((x) => (
+        <li>
+          {x.image
+            ? <Image src={x.image} alt="" width={150} height={75} format="webp" loading="lazy" />
+            : <span class="name">{x.name}</span>}
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="container">
+    <button class="pause" type="button" data-marquee-toggle data-pause={b.pause} data-play={b.play} aria-pressed="false" hidden>
+      <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" focusable="false">
+        <path class="i-pause" d="M2 1v10M10 1v10" fill="none" stroke="currentColor" stroke-width="2" />
+        <path class="i-play" d="M2 1l9 5-9 5z" fill="currentColor" />
+      </svg>
+      <span>{b.pause}</span>
+    </button>
+  </div>
+</section>
+
+<style>
+  .brands { padding-block: 88px 64px; overflow: hidden; }
+  .brands.wipe { clip-path: inset(0 calc((1 - var(--wipe, 1)) * 46%)); }
+  .brands-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: end;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  .brands-title {
+    margin-top: 20px;
+    font-size: var(--fs-h2);
+    line-height: 1.08;
+  }
+  .brands-text {
+    max-width: 440px;
+    color: var(--on-green-2);
+  }
+  .marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee 70s linear infinite;
+  }
+  .marquee:hover,
+  .marquee:focus-within,
+  .marquee.is-paused { animation-play-state: paused; }
+  .track {
+    display: flex;
+    gap: 16px;
+    padding-right: 16px;
+  }
+  .track li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 190px;
+    height: 110px;
+    background: var(--white);
+  }
+  .track :global(img) { width: 150px; height: 75px; object-fit: contain; }
+  .name { color: var(--ink); font-weight: 500; }
+  @keyframes marquee {
+    to { transform: translateX(-50%); }
+  }
+  .pause {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    margin-top: 24px;
+    padding: 0 14px;
+    border: 1px solid var(--rule-on-dark);
+    border-radius: 0;
+    background: transparent;
+    color: var(--on-green-2);
+    font: inherit;
+    font-size: var(--fs-label);
+    cursor: pointer;
+  }
+  .pause:hover { border-color: var(--on-dark); color: var(--on-dark); }
+  .pause .i-play { display: none; }
+  .pause[aria-pressed='true'] .i-play { display: block; }
+  .pause[aria-pressed='true'] .i-pause { display: none; }
+
+  @media (max-width: 900px) {
+    .brands { padding-block: 64px 48px; }
+    .brands-head { margin-bottom: 32px; }
+    .track li { width: 150px; height: 88px; }
+    .track :global(img) { width: 120px; height: 60px; }
+  }
+
+  /* Still grid when the visitor asks for less motion. */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee {
+      width: auto;
+      animation: none;
+      padding-inline: var(--gutter);
+      max-width: var(--container);
+      margin-inline: auto;
+    }
+    .track { flex-wrap: wrap; padding-right: 0; }
+    .track.copy, .pause { display: none; }
+    .brands.wipe { clip-path: none; }
+  }
+</style>

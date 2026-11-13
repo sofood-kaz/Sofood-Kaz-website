@@ -1,36 +1,37 @@
 ---
 import type { Content } from '../i18n';
-interface Props { c: Content }
+interface Props { c: Content; main?: boolean }
 const { contact } = Astro.props.c;
+const Title = Astro.props.main ? 'h1' : 'h2';
 const tel = contact.phone.value ? `tel:${contact.phone.value.replace(/[^+\d]/g, '')}` : '';
 ---
 <section id="contact" class="contact band-ink on-dark" aria-labelledby="contact-title">
   <div class="container grid">
     <div class="span-6">
       <p class="label">{contact.label}</p>
-      <h2 id="contact-title" class="contact-title">{contact.title}</h2>
+      <Title id="contact-title" class="contact-title">{contact.title}</Title>
     </div>
     <div class="span-3 col">
-      <h3 class="item-label">{contact.email.label}</h3>
+      <h2 class="item-label">{contact.email.label}</h2>
       {contact.email.value
         ? <p class="big"><a href={`mailto:${contact.email.value}`}>{contact.email.value}</a></p>
         : <p class="big">{contact.missing}</p>}
-      <h3 class="item-label">{contact.phone.label}</h3>
+      <h2 class="item-label">{contact.phone.label}</h2>
       {contact.phone.value
         ? <p class="big"><a href={tel}>{contact.phone.value}</a></p>
         : <p class="big">{contact.missing}</p>}
     </div>
     <div class="span-3 col">
-      <h3 class="item-label">{contact.site.label}</h3>
+      <h2 class="item-label">{contact.site.label}</h2>
       <p>{contact.site.lines.map((l, i) => <>{i > 0 && <br />}{l}</>)}</p>
-      <h3 class="item-label">{contact.office.label}</h3>
+      <h2 class="item-label">{contact.office.label}</h2>
       <p>{contact.office.lines.map((l, i) => <>{i > 0 && <br />}{l}</>)}</p>
     </div>
   </div>
 </section>
 
 <style>
-  .contact { padding-block: 96px 0; }
+  .contact { padding-block: 96px 72px; min-height: 52vh; }
   .contact-title {
     margin-top: 20px;
     font-size: var(--fs-h2-big);

@@ -1,0 +1,52 @@
+---
+/* Press releases issued by Sofood Kaz, from src/content/releases.json. */
+import releases from '../content/releases.json';
+import { formatDate, type Content, type Lang, type Localized } from '../i18n';
+interface Props { c: Content; lang: Lang }
+const { c, lang } = Astro.props;
+type Release = { date: string; title: Localized; text?: Localized; url?: string };
+const items = ([...releases] as Release[]).sort((a, b) => b.date.localeCompare(a.date));
+---
+<section class="section band-white" aria-labelledby="releases-title">
+  <div class="container">
+    <h2 id="releases-title" class="h2 releases-title">{c.press.releasesTitle}</h2>
+    {items.length === 0 ? (
+      <p class="empty">{c.press.releasesEmpty}</p>
+    ) : (
+      <ul class="rows">
+        {items.map((r) => (
+          <li class="release" data-reveal>
+            <time datetime={r.date}>{formatDate(r.date, lang)}</time>
+            <div>
+              <h3>{r.url ? <a href={r.url}>{r.title[lang]}</a> : r.title[lang]}</h3>
+              {r.text?.[lang] && <p>{r.text[lang]}</p>}
+            </div>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</section>
+
+<style>
+  .releases-title { margin-top: 0; margin-bottom: 32px; }
+  .empty {
+    padding: 28px 0;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink-2);
+  }
+  .release {
+    display: grid;
+    grid-template-columns: 160px minmax(0, 1fr);
+    gap: 32px;
+    padding: 24px 0;
+  }
+  .release time { color: var(--ink-3); }
+  .release h3 { font-size: 20px; font-weight: 400; line-height: 1.35; }
+  .release h3 a { color: var(--ink); }
+  .release p { max-width: 720px; margin-top: 8px; color: var(--ink-2); }
+  @media (max-width: 900px) {
+    .release { grid-template-columns: minmax(0, 1fr); gap: 6px; padding: 20px 0; }
+  }
+</style>

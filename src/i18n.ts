@@ -36,3 +36,12 @@ export function formatDate(iso: string, lang: Lang): string {
   const mm = String(d.getUTCMonth() + 1).padStart(2, '0');
   return `${dd}.${mm}.${d.getUTCFullYear()}`;
 }
+
+/** Pages of the site besides the home page, in menu order. */
+export const PAGES = ['solico', 'history', 'team', 'factory', 'careers', 'press', 'contact'] as const;
+export type Page = (typeof PAGES)[number];
+export type PageKey = 'home' | Page;
+
+export function pagePath(lang: Lang, page: PageKey): string {
+  return page === 'home' ? `/${lang}/` : `/${lang}/${page}/`;
+}

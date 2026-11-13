@@ -1,7 +1,7 @@
 ---
 import type { Content } from '../i18n';
 interface Props { c: Content }
-const { chain } = Astro.props.c;
+const { chain } = Astro.props.c.factory;
 ---
 <section id="chain" class="section" aria-labelledby="chain-title">
   <div class="container">

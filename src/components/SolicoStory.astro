@@ -1,0 +1,62 @@
+---
+import type { Content } from '../i18n';
+interface Props { c: Content }
+const { solico } = Astro.props.c;
+---
+<section class="section band-green on-dark" aria-labelledby="story-title">
+  <div class="container grid">
+    <div class="span-7">
+      <h2 id="story-title" class="story-title">{solico.storyTitle}</h2>
+      <div class="story-text">
+        {solico.paragraphs.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+    <div class="span-5">
+      <h3 class="visually-hidden">{solico.factsLabel}</h3>
+      <dl class="facts">
+        {solico.facts.map((f) => (
+          <div data-reveal>
+            <dt>{f.label}</dt>
+            <dd>{f.value}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="source">{solico.source}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .story-title {
+    font-size: var(--fs-h2);
+    line-height: 1.08;
+  }
+  .story-text {
+    max-width: 600px;
+    margin-top: 28px;
+    font-size: 18px;
+    color: var(--on-green-2);
+  }
+  .story-text p + p { margin-top: 14px; }
+  .facts { border-top: 1px solid rgba(246, 243, 236, 0.45); }
+  .facts div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--rule-on-dark);
+  }
+  .facts dt { color: var(--on-green-3); }
+  .facts dd {
+    font-family: var(--serif);
+    font-size: 34px;
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+  .source {
+    margin-top: 12px;
+    font-size: var(--fs-label);
+    color: var(--on-green-3);
+  }
+</style>

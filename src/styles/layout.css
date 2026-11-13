@@ -81,10 +81,37 @@
   color: var(--ink-3);
 }
 
-/* Sections below the first screen are laid out only when they come near
-   the viewport. Keeps the first load light on phones. */
-main > section.section,
-main > section.contact {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 900px;
+/* Page heading on inner pages. */
+.page-head { padding-block: 72px 56px; }
+.page-head h1 {
+  margin-top: 20px;
+  max-width: 900px;
+  font-size: var(--fs-h1);
+  line-height: 1.02;
 }
+.page-head .lead {
+  max-width: 640px;
+  margin-top: 28px;
+  font-size: var(--fs-lead);
+  color: var(--ink-2);
+}
+@media (max-width: 900px) {
+  .page-head { padding-block: 40px 40px; }
+  .page-head .lead { margin-top: 20px; font-size: var(--fs-body); }
+}
+
+/* Underlined arrow link used for "read more". */
+.more-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  text-decoration-thickness: 1px;
+}
+.more-link:hover { text-decoration-thickness: 2px; }
+.more-link svg { flex: none; transition: transform 0.2s ease; }
+.more-link:hover svg { transform: translateX(4px); }
+.band-green .more-link { color: var(--on-dark); }

@@ -1,0 +1,46 @@
+---
+import Photo from './Photo.astro';
+import { findPhoto } from '../lib/images';
+import type { Content } from '../i18n';
+interface Props { c: Content }
+const { founder } = Astro.props.c.solico;
+---
+<section class="section band-white" aria-labelledby="founder-title">
+  <div class="container grid founder">
+    <div class="span-5" data-reveal>
+      <Photo image={findPhoto('founder')} alt={founder.photoAlt} ratio="4 / 5" caption={founder.caption}
+        sizes="(max-width: 900px) 100vw, 480px" widths={[320, 472]} />
+    </div>
+    <div class="span-7 founder-text">
+      <p class="label">{founder.label}</p>
+      <h2 id="founder-title" class="founder-name">{founder.name}</h2>
+      <div class="founder-body">
+        {founder.paragraphs.map((p, i) => <p class:list={{ first: i === 0 }}>{p}</p>)}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .founder { align-items: center; }
+  .founder-name {
+    margin-top: 20px;
+    font-size: var(--fs-h2-big);
+    line-height: 1.05;
+  }
+  .founder-body {
+    max-width: 560px;
+    margin-top: 28px;
+    color: var(--ink-2);
+  }
+  .founder-body p + p { margin-top: 14px; }
+  .founder-body .first {
+    font-family: var(--serif);
+    font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem);
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  @media (min-width: 901px) {
+    .founder-text { padding-left: 40px; }
+  }
+</style>
