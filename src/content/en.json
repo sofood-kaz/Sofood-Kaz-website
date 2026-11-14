@@ -256,6 +256,39 @@
           "text": "Exports to more than 40 countries in the Middle East, Central Asia, the Caucasus, Europe and East Asia."
         }
       ]
+    },
+    "pillars": {
+      "label": "Responsibility",
+      "title": "Innovation, sustainability, quality",
+      "items": [
+        {
+          "title": "Innovation",
+          "text": "Research centres in the group work on food science, new technologies and new products. The Solico milk refinery, designed by the group's own engineers, is the first large-scale plant of its kind in the Middle East and Asia.",
+          "points": [
+            "The refinery turns raw milk into specialised proteins, whey derivatives, casein and lactose",
+            "Raw materials are tested in the group's laboratories for purity, safety and nutritional value",
+            "Investment in modern production technology and in staff training"
+          ]
+        },
+        {
+          "title": "Sustainability",
+          "text": "The group works with farmers and suppliers on long-term terms and builds its production around efficient use of resources.",
+          "points": [
+            "Suppliers are chosen for food safety, traceability and environmental protection",
+            "Factories cut energy and water use and expand recycling",
+            "Central milk collection shortens transport distances and reduces waste"
+          ]
+        },
+        {
+          "title": "Quality and safety",
+          "text": "Quality control starts with raw materials and continues at every stage of production.",
+          "points": [
+            "Samples are tested for microbiological safety, chemical composition and nutritional value",
+            "Temperature control, strict hygiene, allergen management and regular inspections",
+            "Production follows local and international standards"
+          ]
+        }
+      ]
     }
   },
   "brands": {

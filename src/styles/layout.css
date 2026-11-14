@@ -115,3 +115,10 @@
 .more-link svg { flex: none; transition: transform 0.2s ease; }
 .more-link:hover svg { transform: translateX(4px); }
 .band-green .more-link { color: var(--on-dark); }
+
+/* Sections below the first screen are laid out only when they come near
+   the viewport. Keeps long pages light on phones. */
+main > section.section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
+}

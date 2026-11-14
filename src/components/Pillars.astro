@@ -1,0 +1,53 @@
+---
+/* Innovation, sustainability, quality and safety at Solico Group. */
+import type { Content } from '../i18n';
+interface Props { c: Content }
+const { pillars } = Astro.props.c.solico;
+---
+<section class="section" aria-labelledby="pillars-title">
+  <div class="container">
+    <p class="label">{pillars.label}</p>
+    <h2 id="pillars-title" class="h2 title">{pillars.title}</h2>
+    <ul class="pillars">
+      {pillars.items.map((x) => (
+        <li data-reveal>
+          <h3>{x.title}</h3>
+          <p class="text">{x.text}</p>
+          <ul class="points">
+            {x.points.map((p) => <li>{p}</li>)}
+          </ul>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .title { max-width: 760px; margin-bottom: 56px; }
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid var(--ink);
+  }
+  .pillars > li {
+    padding: 28px 32px 0;
+    border-left: 1px solid var(--rule);
+  }
+  .pillars > li:first-child { padding-left: 0; border-left: 0; }
+  .pillars > li:last-child { padding-right: 0; }
+  h3 { font-size: var(--fs-h3); line-height: 1.25; }
+  .text { margin-top: 12px; color: var(--ink-2); }
+  .points { margin-top: 20px; border-bottom: 1px solid var(--rule); }
+  .points li {
+    padding: 12px 0;
+    border-top: 1px solid var(--rule);
+    font-size: var(--fs-small);
+    color: var(--ink-2);
+  }
+  @media (max-width: 900px) {
+    .title { margin-bottom: 40px; }
+    .pillars { grid-template-columns: minmax(0, 1fr); }
+    .pillars > li { padding: 24px 0 32px; border-left: 0; border-bottom: 1px solid var(--rule); }
+    .pillars > li:last-child { border-bottom: 0; }
+  }
+</style>
