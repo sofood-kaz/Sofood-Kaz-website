@@ -1,0 +1,36 @@
+---
+/* Brand names by product category, from src/content/brand-groups.json. */
+import groups from '../content/brand-groups.json';
+import type { Content, Lang } from '../i18n';
+interface Props { c: Content; lang: Lang }
+const { c, lang } = Astro.props;
+---
+<section class="section band-white" aria-labelledby="dir-title">
+  <div class="container">
+    <p class="label">{c.brands.dirLabel}</p>
+    <h2 id="dir-title" class="h2 title">{c.brands.dirTitle}</h2>
+    <dl class="rows">
+      {groups.map((g) => (
+        <div class="row" data-reveal>
+          <dt>{g.category[lang]}</dt>
+          <dd>{g.brands.join(' · ')}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
+
+<style>
+  .title { margin-bottom: 40px; }
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: var(--col-gap);
+    padding: 18px 0;
+  }
+  dt { font-weight: 500; }
+  dd { color: var(--ink-2); }
+  @media (max-width: 900px) {
+    .row { grid-template-columns: minmax(0, 1fr); gap: 4px; padding: 16px 0; }
+  }
+</style>

@@ -1,0 +1,238 @@
+[
+  {
+    "category": {
+      "ru": "Молочная продукция",
+      "kz": "Сүт өнімдері",
+      "en": "Dairy"
+    },
+    "brands": [
+      "Kalleh",
+      "Seven",
+      "Ana",
+      "Ghahvechi",
+      "Delkhameh",
+      "Lio",
+      "Lactivia",
+      "Omma",
+      "K-Rico",
+      "Zero",
+      "Tahshir",
+      "T-Feta",
+      "Nari",
+      "Willie",
+      "Kalleh Pro",
+      "Delis",
+      "Majan",
+      "Dono"
+    ]
+  },
+  {
+    "category": {
+      "ru": "Десерты",
+      "kz": "Десерттер",
+      "en": "Desserts"
+    },
+    "brands": [
+      "Delis",
+      "Katela",
+      "Fordo",
+      "Kalleh Pro",
+      "Majan"
+    ]
+  },
+  {
+    "category": {
+      "ru": "Напитки",
+      "kz": "Сусындар",
+      "en": "Beverages"
+    },
+    "brands": [
+      "Argo",
+      "NRJ",
+      "Doocola",
+      "Shams",
+      "Castle",
+      "luckydo",
+      "Lucky Fruit",
+      "luckyU",
+      "Majidieh",
+      "Shemroon",
+      "Kalleh",
+      "Kalleh Pro",
+      "Majan"
+    ]
+  },
+  {
+    "category": {
+      "ru": "Мороженое",
+      "kz": "Балмұздақ",
+      "en": "Ice cream"
+    },
+    "brands": [
+      "Fordo",
+      "Brimond",
+      "Rendo",
+      "Jeeto",
+      "Kalleh",
+      "Kalleh Pro",
+      "Ajil"
+    ]
+  },
+  {
+    "category": {
+      "ru": "Соусы",
+      "kz": "Тұздықтар",
+      "en": "Sauces"
+    },
+    "brands": [
+      "Kalleh",
+      "Koochin",
+      "Kalleh Pro",
+      "Ajil",
+      "Sorbon"
+    ]
+  },
+  {
+    "category": {
+      "ru": "Шоколад и кондитерские изделия",
+      "kz": "Шоколад және кондитерлік өнімдер",
+      "en": "Chocolate and confectionery"
+    },
+    "brands": [
+      "Sorbon",
+      "Kalleh",
+      "Katela"
+    ]
+  },
+  {
+    "category": {
+      "ru": "Готовые блюда и полуфабрикаты",
+      "kz": "Дайын тағамдар мен жартылай фабрикаттар",
+      "en": "Ready-to-eat and ready-to-cook"
+    },
+    "brands": [
+      "Pemina",
+      "Fitzy Funzy",
+      "Fileh",
+      "Capo",
+      "Ajil",
+      "Majan",
+      "Celino"
+    ]
+  },
+  {
+    "category": {
+      "ru": "Кофе",
+      "kz": "Кофе",
+      "en": "Coffee"
+    },
+    "brands": [
+      "Sokafe",
+      "Solatte",
+      "Ajil"
+    ]
+  },
+  {
+    "category": {
+      "ru": "Продукты для здоровья",
+      "kz": "Денсаулыққа арналған өнімдер",
+      "en": "Health foods"
+    },
+    "brands": [
+      "Ajil",
+      "Majan",
+      "Kalleh Pro",
+      "Celino",
+      "Dono",
+      "Solameal",
+      "Fitzy Funzy",
+      "Sorbon"
+    ]
+  },
+  {
+    "category": {
+      "ru": "Детское питание",
+      "kz": "Балалар тағамы",
+      "en": "Baby food"
+    },
+    "brands": [
+      "Majan",
+      "Dono"
+    ]
+  },
+  {
+    "category": {
+      "ru": "Замороженные продукты",
+      "kz": "Мұздатылған өнімдер",
+      "en": "Frozen foods"
+    },
+    "brands": [
+      "Pemina",
+      "Capo",
+      "Solico Kalleh",
+      "Fileh",
+      "Ajil",
+      "Celino",
+      "Fitzy Funzy"
+    ]
+  },
+  {
+    "category": {
+      "ru": "Для общепита",
+      "kz": "Қоғамдық тамақтануға арналған",
+      "en": "Food service"
+    },
+    "brands": [
+      "Pemina",
+      "Capo"
+    ]
+  },
+  {
+    "category": {
+      "ru": "Снеки",
+      "kz": "Снектер",
+      "en": "Snacks"
+    },
+    "brands": [
+      "Crunch",
+      "Fitzy Funzy",
+      "Jijis",
+      "Sorbon LOL"
+    ]
+  },
+  {
+    "category": {
+      "ru": "Специализированное питание",
+      "kz": "Мамандандырылған тағам",
+      "en": "Specialised nutrition"
+    },
+    "brands": [
+      "Solameal",
+      "Majan",
+      "Kalleh Pro"
+    ]
+  },
+  {
+    "category": {
+      "ru": "Крупы и мука",
+      "kz": "Жармалар мен ұн",
+      "en": "Grains and flour"
+    },
+    "brands": [
+      "Celino",
+      "Sorbon"
+    ]
+  },
+  {
+    "category": {
+      "ru": "Приправы и консервация",
+      "kz": "Дәмдеуіштер мен консервілер",
+      "en": "Condiments and preserves"
+    },
+    "brands": [
+      "Koochin",
+      "Capo",
+      "Katela"
+    ]
+  }
+]

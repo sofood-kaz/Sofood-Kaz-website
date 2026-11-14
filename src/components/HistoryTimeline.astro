@@ -26,11 +26,11 @@ const items = history.items.map((x) => ({ ...x, img: x.image ? findHistory(x.ima
           <li class:list={['event', { 'is-active': i === 0 }]} data-year={x.year}>
             <span class="dot" aria-hidden="true"></span>
             <div class="event-body">
-              <p class="event-year">{x.year}</p>
+              <p class="event-year">{x.range ?? x.year}</p>
               <h2 class="event-title">{x.title}</h2>
               <p class="event-text">{x.text}</p>
             </div>
-            {x.img && <Image src={x.img} alt="" width={132} height={132} format="webp" loading="lazy" class="event-img" />}
+            {x.img && <Image src={x.img} alt="" width={300} height={400} format="webp" loading="lazy" class="event-img" />}
           </li>
         ))}
       </ol>
@@ -119,9 +119,9 @@ const items = history.items.map((x) => ({ ...x, img: x.image ? findHistory(x.ima
   }
   .event :global(.event-img) {
     flex: none;
-    width: 132px;
-    height: 132px;
-    border-radius: 50%;
+    width: 150px;
+    height: 200px;
+    object-fit: cover;
     background: var(--placeholder);
   }
   .outro {
@@ -154,7 +154,7 @@ const items = history.items.map((x) => ({ ...x, img: x.image ? findHistory(x.ima
     .events { padding-left: 28px; }
     .dot { left: -28px; top: 48px; }
     .event { padding-block: 40px; gap: 16px; }
-    .event :global(.event-img) { width: 84px; height: 84px; }
+    .event :global(.event-img) { width: 84px; height: 112px; }
     .event-year {
       font-family: var(--serif);
       font-size: 44px;

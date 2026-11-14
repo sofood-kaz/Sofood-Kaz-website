@@ -6,6 +6,8 @@ import PageHead from '../../components/PageHead.astro';
 import Arrow from '../../components/Arrow.astro';
 import SolicoStory from '../../components/SolicoStory.astro';
 import Founder from '../../components/Founder.astro';
+import Strengths from '../../components/Strengths.astro';
+import BrandDirectory from '../../components/BrandDirectory.astro';
 import Brands from '../../components/Brands.astro';
 import HistoryTimeline from '../../components/HistoryTimeline.astro';
 import Team from '../../components/Team.astro';
@@ -30,6 +32,7 @@ const c = t(lang);
     <>
       <PageHead label={c.solico.label} title={c.solico.title} lead={c.solico.lead} />
       <SolicoStory c={c} />
+      <Strengths c={c} />
       <Founder c={c} />
       <section class="section history-link" aria-labelledby="history-link-title">
         <div class="container">
@@ -39,6 +42,7 @@ const c = t(lang);
         </div>
       </section>
       <Brands c={c} />
+      <BrandDirectory c={c} lang={lang} />
     </>
   )}
 

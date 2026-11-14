@@ -28,7 +28,7 @@ const items = brands.map((x) => ({ ...x, image: findBrand(x.id) }));
       {items.map((x) => (
         <li>
           {x.image
-            ? <Image src={x.image} alt={x.name} width={150} height={75} format="webp" loading="lazy" />
+            ? <Image src={x.image} alt={x.name} height={150} format="webp" loading="lazy" />
             : <span class="name">{x.name}</span>}
         </li>
       ))}
@@ -37,7 +37,7 @@ const items = brands.map((x) => ({ ...x, image: findBrand(x.id) }));
       {items.map((x) => (
         <li>
           {x.image
-            ? <Image src={x.image} alt="" width={150} height={75} format="webp" loading="lazy" />
+            ? <Image src={x.image} alt="" height={150} format="webp" loading="lazy" />
             : <span class="name">{x.name}</span>}
         </li>
       ))}
@@ -78,7 +78,7 @@ const items = brands.map((x) => ({ ...x, image: findBrand(x.id) }));
   .marquee {
     display: flex;
     width: max-content;
-    animation: marquee 70s linear infinite;
+    animation: marquee 140s linear infinite;
   }
   .marquee:hover,
   .marquee:focus-within,
@@ -96,7 +96,7 @@ const items = brands.map((x) => ({ ...x, image: findBrand(x.id) }));
     height: 110px;
     background: var(--white);
   }
-  .track :global(img) { width: 150px; height: 75px; object-fit: contain; }
+  .track :global(img) { width: 150px; height: 86px; object-fit: contain; }
   .name { color: var(--ink); font-weight: 500; }
   @keyframes marquee {
     to { transform: translateX(-50%); }
@@ -125,7 +125,7 @@ const items = brands.map((x) => ({ ...x, image: findBrand(x.id) }));
     .brands { padding-block: 64px 48px; }
     .brands-head { margin-bottom: 32px; }
     .track li { width: 150px; height: 88px; }
-    .track :global(img) { width: 120px; height: 60px; }
+    .track :global(img) { width: 120px; height: 68px; }
   }
 
   /* Still grid when the visitor asks for less motion. */

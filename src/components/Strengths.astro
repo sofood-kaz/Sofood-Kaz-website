@@ -1,0 +1,34 @@
+---
+import type { Content } from '../i18n';
+interface Props { c: Content }
+const { strengths } = Astro.props.c.solico;
+---
+<section class="section" aria-labelledby="strengths-title">
+  <div class="container">
+    <p class="label">{strengths.label}</p>
+    <h2 id="strengths-title" class="h2 title">{strengths.title}</h2>
+    <ul class="rows">
+      {strengths.items.map((x) => (
+        <li class="row" data-reveal>
+          <h3>{x.title}</h3>
+          <p>{x.text}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .title { margin-bottom: 40px; }
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--col-gap);
+    padding: 22px 0;
+  }
+  .row h3 { font-size: var(--fs-h3); line-height: 1.25; }
+  .row p { color: var(--ink-2); }
+  @media (max-width: 900px) {
+    .row { grid-template-columns: minmax(0, 1fr); gap: 6px; padding: 18px 0; }
+  }
+</style>

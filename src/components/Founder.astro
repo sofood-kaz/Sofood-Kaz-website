@@ -6,16 +6,45 @@ interface Props { c: Content }
 const { founder } = Astro.props.c.solico;
 ---
 <section class="section band-white" aria-labelledby="founder-title">
-  <div class="container grid founder">
-    <div class="span-5" data-reveal>
-      <Photo image={findPhoto('founder')} alt={founder.photoAlt} ratio="4 / 5" caption={founder.caption}
-        sizes="(max-width: 900px) 100vw, 480px" widths={[320, 472]} />
+  <div class="container">
+    <div class="grid founder">
+      <div class="span-5" data-reveal>
+        <Photo image={findPhoto('founder')} alt={founder.photoAlt} ratio="4 / 5" caption={founder.caption}
+          sizes="(max-width: 900px) 100vw, 480px" widths={[320, 472]} />
+      </div>
+      <div class="span-7 founder-text">
+        <p class="label">{founder.label}</p>
+        <h2 id="founder-title" class="founder-name">{founder.name}</h2>
+        <p class="founder-role">{founder.role}</p>
+        <div class="founder-body">
+          {founder.paragraphs.map((p, i) => <p class:list={{ first: i === 0 }}>{p}</p>)}
+        </div>
+        <figure class="quote">
+          <blockquote><p>{founder.quote}</p></blockquote>
+          <figcaption>{founder.name}</figcaption>
+        </figure>
+      </div>
     </div>
-    <div class="span-7 founder-text">
-      <p class="label">{founder.label}</p>
-      <h2 id="founder-title" class="founder-name">{founder.name}</h2>
-      <div class="founder-body">
-        {founder.paragraphs.map((p, i) => <p class:list={{ first: i === 0 }}>{p}</p>)}
+
+    <h3 class="sub-label">{founder.timelineLabel}</h3>
+    <ol class="dates">
+      {founder.timeline.map((x) => (
+        <li data-reveal><span class="year">{x.year}</span><span class="what">{x.text}</span></li>
+      ))}
+    </ol>
+
+    <div class="grid lower">
+      <div class="span-8">
+        <h3 class="sub-label">{founder.principlesLabel}</h3>
+        <ul class="principles">
+          {founder.principles.map((x) => (
+            <li><strong>{x.title}</strong><span>{x.text}</span></li>
+          ))}
+        </ul>
+      </div>
+      <div class="span-4">
+        <h3 class="sub-label">{founder.recognitionLabel}</h3>
+        <p class="recognition">{founder.recognition}</p>
       </div>
     </div>
   </div>
@@ -28,6 +57,7 @@ const { founder } = Astro.props.c.solico;
     font-size: var(--fs-h2-big);
     line-height: 1.05;
   }
+  .founder-role { margin-top: 10px; color: var(--ink-3); }
   .founder-body {
     max-width: 560px;
     margin-top: 28px;
@@ -40,7 +70,85 @@ const { founder } = Astro.props.c.solico;
     line-height: 1.3;
     color: var(--ink);
   }
+  .quote {
+    max-width: 560px;
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 1px solid var(--ink);
+  }
+  .quote blockquote { margin: 0; }
+  .quote p {
+    font-family: var(--serif);
+    font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem);
+    line-height: 1.3;
+    color: var(--green);
+  }
+  .quote figcaption {
+    margin-top: 12px;
+    font-size: var(--fs-small);
+    color: var(--ink-3);
+  }
+  .sub-label {
+    margin-top: 80px;
+    margin-bottom: 16px;
+    font-size: var(--fs-label);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .dates {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    border-top: 1px solid var(--ink);
+  }
+  .dates li {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 18px 16px 0;
+    border-left: 1px solid var(--rule);
+  }
+  .dates li:first-child { padding-left: 0; border-left: 0; }
+  .year {
+    font-family: var(--serif);
+    font-size: 30px;
+    line-height: 1;
+    color: var(--green);
+  }
+  .what { font-size: var(--fs-small); color: var(--ink-2); }
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    border-bottom: 1px solid var(--rule);
+  }
+  .principles li {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .principles strong { font-weight: 600; }
+  .principles span { font-size: var(--fs-small); color: var(--ink-2); }
+  .recognition {
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    color: var(--ink-2);
+  }
   @media (min-width: 901px) {
     .founder-text { padding-left: 40px; }
+  }
+  @media (max-width: 900px) {
+    .sub-label { margin-top: 56px; }
+    .lower { row-gap: 0; }
+    .dates { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .dates li { padding: 16px 0 18px 16px; }
+    .dates li:nth-child(odd) { padding-left: 0; border-left: 0; }
+    .dates li:nth-child(n + 3) { border-top: 1px solid var(--rule); }
+  }
+  @media (max-width: 640px) {
+    .principles { grid-template-columns: minmax(0, 1fr); }
   }
 </style>

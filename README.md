@@ -118,7 +118,11 @@ To add a person: copy one `{ ... }` block, give it a short `id` in Latin letters
 
 **Brand** (`src/content/brands.json`): add `{ "id": "name", "name": "Name" }` and put the logo at `src/assets/brands/<id>.png` (about 300 x 150 px, transparent or white background). The order in the file is the order in the moving row.
 
-**History event** (`history.items` in each language file): `year`, `title`, `text`, and `image` = the file name in `src/assets/history/` without extension, or `""` for no photo.
+**Brand categories** (`src/content/brand-groups.json`): the list "What the group makes" on the About Solico page; each entry has the category name in three languages and its brand names.
+
+**History event** (`history.items` in each language file): `year` (the large pinned number), `range` (shown above the title, for example `1991–1999`), `title`, `text`, and `image` = the file name in `src/assets/history/` without extension, or `""` for no photo.
+
+The Solico Group facts, founder biography, history and brand list follow the group's site solico-group.com (read 14.11.2026). When the group updates its figures, change them in `solico.facts` in the three language files.
 
 ---
 
