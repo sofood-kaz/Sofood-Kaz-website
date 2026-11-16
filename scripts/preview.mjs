@@ -64,7 +64,7 @@ for await (const file of walk(out)) {
     .replace(/(http-equiv="refresh" content="0; ?url=)\/([^"]*)"/, (_, a, p) => `${a}${prefix}${withIndex(p)}"`)
     .replace('</head>', `<meta name="robots" content="noindex, nofollow">${noteCss}</head>`);
 
-  if (html.includes('class="site-header')) {
+  if (html.includes('site-header')) {
     html = html.replace(/<body([^>]*)>/, `<body$1><div class="draft-note" role="note"><div class="container">${notes[lang]}</div></div>`);
   }
 
