@@ -5,7 +5,6 @@ const { strengths } = Astro.props.c.solico;
 ---
 <section class="section band-white" aria-labelledby="strengths-title">
   <div class="container">
-    <p class="label">{strengths.label}</p>
     <h2 id="strengths-title" class="h2 title">{strengths.title}</h2>
     <ul class="rows">
       {strengths.items.map((x) => (

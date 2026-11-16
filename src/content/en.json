@@ -1,6 +1,6 @@
 {
   "meta": {
-    "ogAlt": "Sofood Kaz: milk from Almaty and Zhetisu farms, cheese made in Konaev"
+    "ogAlt": "Sofood Kaz Agricultural Complex: from farm to shelf, Konaev"
   },
   "pages": {
     "home": {
@@ -57,19 +57,39 @@
     "more": "Read more"
   },
   "hero": {
-    "kicker": "Agro-industrial complex · Konaev, Almaty region",
-    "title": "Milk from Almaty and Zhetisu farms. Cheese made in Konaev.",
-    "lead": "Sofood Kaz is building a dairy processing complex in Konaev. The cheese plant comes first, followed by three more production sites and a packaging area. The project is backed by Solico Group, the food holding behind the Kalleh brand.",
+    "kicker": "Konaev · Almaty region · next to Alatau",
+    "title": "From farm to shelf",
+    "lead": "The complex is being built in Konaev, in the fast-growing Almaty region, on the routes between China, Russia, Iran and Europe. The cheese plant comes first, followed by three more production sites and a packaging area. The project is backed by Solico Group, the food holding behind the Kalleh brand.",
     "cta": "About the factory",
     "link": "Contact the team",
     "photo": {
       "file": "hero",
       "alt": "Sofood Kaz construction site in Konaev",
       "caption": "Photo: construction site, Konaev",
-      "date": "October 2026"
+      "date": "[TO CONFIRM]"
     }
   },
+  "map": {
+    "almaty": "Almaty",
+    "konaev": "Konaev",
+    "taldykorgan": "Taldykorgan",
+    "reservoir": "Kapshagay Reservoir",
+    "ili": "Ili",
+    "balkhash": "Lake Balkhash",
+    "regionAlmaty": "Almaty Region",
+    "regionZhetisu": "Zhetisu Region",
+    "complex": "Sofood Kaz complex",
+    "river": "River",
+    "road": "Highway",
+    "border": "State border",
+    "building": "under construction",
+    "km": "km",
+    "credit": "Map: Natural Earth. Relief: Terrain Tiles.",
+    "alt": "Map of the Almaty and Zhetisu regions: Almaty, Konaev with the Sofood Kaz complex, the Kapshagay Reservoir and Taldykorgan.",
+    "signs": "Map legend"
+  },
   "figures": {
+    "source": "Source: [TO CONFIRM]",
     "label": "Key figures",
     "items": [
       {
@@ -402,6 +422,43 @@
       "text": "Energy for the complex is planned to come from Sonergy, the hybrid power company of Solico Group.",
       "linkText": "sonergy.kz",
       "url": "https://sonergy.kz/"
+    },
+    "process": {
+      "title": "How the plant works",
+      "now": "Phase one, under construction",
+      "later": "Later phases, planned",
+      "items": [
+        {
+          "title": "Milk reception",
+          "text": "Tankers unload under a canopy. Milk is cooled, stored in buffer tanks, cleaned and pasteurised before it goes to the cheese halls.",
+          "status": "now"
+        },
+        {
+          "title": "Ultrafiltered cheese",
+          "text": "Mixing and buffer tanks, ultrafiltration and pasteurising, then fillers and product cold rooms next to dispatch.",
+          "status": "now"
+        },
+        {
+          "title": "Lactic cheese and labneh",
+          "text": "Homogenisers, a cheese vat, the labneh line and filling machines.",
+          "status": "now"
+        },
+        {
+          "title": "Cold and dry stores",
+          "text": "Refrigerated chambers with pallet racking and loading docks; a high-bay store for ingredients and packaging materials.",
+          "status": "now"
+        },
+        {
+          "title": "Utilities",
+          "text": "The boiler house makes process steam and compressed air; next to it are refrigeration, ice banks and water treatment.",
+          "status": "now"
+        },
+        {
+          "title": "Later phases",
+          "text": "Yogurt, sour cream and butter; natural cheese with ripening rooms; packaging production.",
+          "status": "planned"
+        }
+      ]
     },
     "chain": {
       "label": "From farm to shelf",

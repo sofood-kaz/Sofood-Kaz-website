@@ -1,0 +1,248 @@
+---
+/*
+ * Home page, below the map sheet: the same sheet read at three scales.
+ * Region (where the milk comes from) -> site (the complex from above) -> phase one today.
+ * Wide screens with JavaScript get a pinned stage that changes scale as the text scrolls;
+ * phones, reduced motion and no-JS get three plain sections, each with its own picture.
+ * Needs <MapSheet> on the same page: it defines the #geo linework.
+ */
+import { Image } from 'astro:assets';
+import Arrow from './Arrow.astro';
+import geo from '../assets/map/region.json';
+import { findPhoto } from '../lib/images';
+import { pagePath, type Content, type Lang } from '../i18n';
+
+interface Props { lang: Lang; c: Content }
+const { lang, c } = Astro.props;
+const { chain, progress } = c.factory;
+const [source, processing] = chain.columns;
+const top = findPhoto('site-top-2') ?? findPhoto('site-top');
+const now = findPhoto(c.hero.photo.file);
+const k = geo.places.konaev;
+// Closer than the first screen: the Almaty - Konaev - reservoir corridor.
+const VIEW = '330 245 520 340';
+const a = geo.places.almaty;
+---
+<section class="scales band-green" aria-labelledby="scales-title" data-scales data-step="0">
+  <div class="scales-grid">
+    <div class="stage" aria-hidden="true">
+      <div class="stage-inner">
+        <svg class="stage-map" viewBox={VIEW} preserveAspectRatio="xMidYMid slice" focusable="false">
+          <g class="zoom" style={`transform-origin: ${k.x}px ${k.y}px`}>
+            <use href="#geo" />
+            <rect class="site" x={k.x - 7} y={k.y - 7} width="14" height="14" />
+          </g>
+          <g class="labels">
+            <text class="t-region" x="700" y="312">{c.map.regionZhetisu}</text>
+            <text class="t-region" x="655" y="468">{c.map.regionAlmaty}</text>
+            <text class="t-water" x="668" y="408">{c.map.reservoir}</text>
+            <text class="t-water t-river" x="540" y="335" transform="rotate(31 540 335)">{c.map.ili}</text>
+            <circle class="city" cx={a.x} cy={a.y} r="4.2" /><circle class="city-dot" cx={a.x} cy={a.y} r="1.6" />
+            <text class="t-city" x={a.x + 9} y={a.y + 3}>{c.map.almaty}</text>
+            <text class="t-site" x={k.x - 12} y={k.y - 10} text-anchor="end">{c.map.konaev}</text>
+            <text class="t-site-2" x={k.x - 12} y={k.y}  text-anchor="end">{c.map.complex}</text>
+          </g>
+        </svg>
+        {top && (
+          <div class="plate plate-1">
+            <Image src={top} alt="" widths={[640, 960, 1280]} sizes="(max-width: 900px) 100vw, 52vw" loading="lazy" />
+          </div>
+        )}
+        {now && (
+          <div class="plate plate-2">
+            <Image src={now} alt="" widths={[640, 960, 1280]} sizes="(max-width: 900px) 100vw, 52vw" loading="lazy" />
+          </div>
+        )}
+        <ol class="rungs">
+          <li>{c.map.regionAlmaty}</li>
+          <li>{c.map.konaev}</li>
+          <li>{progress.value}%</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="steps">
+      <h2 id="scales-title" class="scales-title">{chain.title}</h2>
+
+      <article class="step" data-scale-step>
+        <svg class="step-media step-map" viewBox="450 345 300 169" preserveAspectRatio="xMidYMid slice" role="img" aria-label={c.map.alt}>
+          <use href="#geo" />
+          <rect class="site" x={k.x - 7} y={k.y - 7} width="14" height="14" />
+          <g class="labels">
+            <text class="t-water" x="668" y="409">{c.map.reservoir}</text>
+            <text class="t-site" x={k.x - 12} y={k.y + 4} text-anchor="end">{c.map.konaev}</text>
+          </g>
+        </svg>
+        <h3>{source.title}</h3>
+        <p>{source.text}</p>
+      </article>
+
+      <article class="step" data-scale-step>
+        {top && <Image class="step-media" src={top} alt={c.hero.photo.alt} widths={[480, 800, 1200]} sizes="100vw" loading="lazy" />}
+        <h3>{processing.title}</h3>
+        <p>{processing.text}</p>
+      </article>
+
+      <article class="step" data-scale-step>
+        {now && <Image class="step-media" src={now} alt={c.hero.photo.alt} widths={[480, 800, 1200]} sizes="100vw" loading="lazy" />}
+        <h3 class="step-figure"><span>{progress.value}%</span> {progress.label}</h3>
+        <div class="built" role="img" aria-label={`${progress.label}: ${progress.value}%`}>
+          <span style={`width: ${progress.value}%`}></span>
+        </div>
+        <p>{progress.text}</p>
+        <a class="more-link" href={pagePath(lang, 'factory')}>{c.hero.cta}<Arrow /></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    var root = document.querySelector('[data-scales]');
+    if (!root) return;
+    var steps = Array.prototype.slice.call(root.querySelectorAll('[data-scale-step]'));
+    var ticking = false;
+    // The active step is the last one whose top has passed the middle of the window.
+    var update = function () {
+      ticking = false;
+      var mid = window.innerHeight * 0.55;
+      var active = 0;
+      steps.forEach(function (s, i) { if (s.getBoundingClientRect().top < mid) active = i; });
+      if (root.dataset.step !== String(active)) root.dataset.step = String(active);
+    };
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    window.addEventListener('resize', update);
+    root.classList.add('is-live');
+    update();
+  })();
+</script>
+
+<style>
+  .scales { border-top: 0; }
+  .scales-grid { display: block; }
+  .stage { display: none; }
+  .steps { padding: var(--section-y) var(--gutter); max-width: 720px; margin-inline: auto; }
+  .scales-title { font-size: var(--fs-h2); line-height: 1.04; max-width: 14em; }
+  .step { margin-top: 56px; }
+  .step-media {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    margin-bottom: 24px;
+    border: 2px solid var(--milk);
+    background: var(--land);
+  }
+  .step h3 {
+    font-family: var(--narrow);
+    font-weight: 700;
+    font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem);
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+  .step p { margin-top: 12px; max-width: 34em; color: var(--milk-2); }
+  .step-figure span { display: block; font-size: clamp(4rem, 3rem + 5vw, 6rem); line-height: 0.9; color: var(--mark); font-variant-numeric: tabular-nums; }
+  /* Built is solid; what is still under construction is hatched. */
+  .built {
+    width: 100%;
+    height: 16px;
+    margin-top: 20px;
+    max-width: 30em;
+    border: 1.5px solid var(--milk);
+    background: repeating-linear-gradient(45deg, rgba(251, 250, 244, 0.5) 0 2px, transparent 2px 6px);
+  }
+  .built span { display: block; height: 100%; background: var(--milk); }
+  .step .more-link { margin-top: 20px; }
+  .site { fill: url(#plot); stroke: var(--mark); stroke-width: 2; vector-effect: non-scaling-stroke; }
+  .labels text {
+    font-family: var(--narrow);
+    fill: var(--milk);
+    paint-order: stroke;
+    stroke: var(--land);
+    stroke-width: 3px;
+    stroke-linejoin: round;
+  }
+  .t-city { font-size: 9px; letter-spacing: 0.9px; text-transform: uppercase; }
+  .t-region { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; text-anchor: middle; fill: var(--milk-2); opacity: 0.8; }
+  .labels .t-water { font-size: 7.6px; letter-spacing: 0.7px; font-style: italic; fill: var(--river); text-anchor: middle; }
+  .labels .t-site { font-size: 13px; font-weight: 700; letter-spacing: 0.9px; text-transform: uppercase; fill: var(--mark); stroke-width: 3.5px; }
+  .labels .t-site-2 { font-size: 8px; letter-spacing: 0.5px; }
+  .labels .t-river { font-size: 10px; font-style: normal; letter-spacing: 1.6px; }
+  .step-map .t-water { font-size: 10.5px; }
+  .step-map .t-site { font-size: 14px; }
+  .city { fill: var(--land); stroke: var(--milk); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+  .city-dot { fill: var(--milk); }
+
+  @media (min-width: 901px) {
+    :global(html.js) .scales.is-live .scales-grid { display: grid; grid-template-columns: minmax(0, 58fr) minmax(0, 42fr); }
+    :global(html.js) .scales.is-live .stage {
+      display: block;
+      position: sticky;
+      top: var(--header-h);
+      height: calc(100svh - var(--header-h) - var(--sheet-pad));
+      border-right: 2px solid var(--milk);
+      overflow: hidden;
+    }
+    :global(html.js) .scales.is-live .step-media { display: none; }
+    :global(html.js) .scales.is-live .steps { max-width: none; margin: 0; padding: 0 clamp(28px, 4vw, 64px); }
+    :global(html.js) .scales.is-live .scales-title { padding-top: var(--section-y); }
+    :global(html.js) .scales.is-live .step {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 82svh;
+      margin-top: 0;
+    }
+    :global(html.js) .scales.is-live .step:first-of-type { min-height: 60svh; }
+
+    .stage-inner { position: relative; width: 100%; height: 100%; }
+    .stage-map { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; }
+    .zoom { transform-box: view-box; transition: transform 1.2s var(--ease-out); }
+    .scales[data-step='1'] .zoom,
+    .scales[data-step='2'] .zoom { transform: translate(5.5px, -11.8px) scale(6); }
+    .stage-map .labels { transition: opacity 0.3s ease; }
+    .scales[data-step='1'] .stage-map .labels,
+    .scales[data-step='2'] .stage-map .labels { opacity: 0; }
+    /* The photograph takes the whole stage, opening from the plot the map zoomed into. */
+    .plate {
+      position: absolute;
+      inset: 0;
+      background: var(--deep);
+      clip-path: circle(0% at 50% 50%);
+      transition: clip-path 0.9s var(--ease-out);
+    }
+    .plate :global(img) { width: 100%; height: 100%; object-fit: cover; }
+    .scales[data-step='1'] .plate-1,
+    .scales[data-step='2'] .plate-1,
+    .scales[data-step='2'] .plate-2 { clip-path: circle(75% at 50% 50%); }
+    .scales[data-step='1'] .plate-1,
+    .scales[data-step='2'] .plate-2 { transition-delay: 0.5s; }
+
+    .rungs {
+      position: absolute;
+      left: 20px;
+      bottom: 18px;
+      display: flex;
+      gap: 0;
+      font-family: var(--narrow);
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--milk);
+      background: var(--deep);
+      border: 1.5px solid var(--milk);
+    }
+    .rungs li { padding: 6px 12px; transition: background-color 0.3s ease, color 0.3s ease; }
+    .rungs li + li { border-left: 1.5px solid var(--milk); }
+    .scales[data-step='0'] .rungs li:nth-child(1),
+    .scales[data-step='1'] .rungs li:nth-child(2),
+    .scales[data-step='2'] .rungs li:nth-child(3) { background: var(--milk); color: var(--deep); }
+  }
+  @media (min-width: 901px) and (prefers-reduced-motion: reduce) {
+    .zoom, .plate, .rungs li, .stage-map .labels { transition: none; }
+  }
+</style>

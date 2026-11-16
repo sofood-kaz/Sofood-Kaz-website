@@ -4,6 +4,10 @@ import { findPhoto } from '../lib/images';
 import type { Content } from '../i18n';
 interface Props { c: Content }
 const project = Astro.props.c.factory;
+const { hero } = Astro.props.c;
+// Until the site plan drawing is supplied, show the site from above.
+const plan = findPhoto(project.plan.file);
+const aerial = plan ? undefined : findPhoto('site-top');
 ---
 <section id="project" class="section band-white" aria-labelledby="project-title">
   <div class="container grid">
@@ -14,8 +18,8 @@ const project = Astro.props.c.factory;
       </div>
     </div>
     <div class="span-8">
-      <Photo image={findPhoto(project.plan.file)} alt={project.plan.alt} ratio="15 / 8"
-        caption={project.plan.caption} sizes="(max-width: 900px) 100vw, 790px" widths={[640, 960, 1280, 1600]} />
+      <Photo image={plan ?? aerial} alt={plan ? project.plan.alt : hero.photo.alt} ratio="15 / 8"
+        caption={aerial ? hero.photo.caption : project.plan.caption} sizes="(max-width: 900px) 100vw, 790px" widths={[640, 960, 1280, 1600]} />
 
       <h3 class="list-label">{project.listLabel}</h3>
       <ol class="facilities">

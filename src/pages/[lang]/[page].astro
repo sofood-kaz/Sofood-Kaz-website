@@ -14,6 +14,7 @@ import HistoryTimeline from '../../components/HistoryTimeline.astro';
 import Team from '../../components/Team.astro';
 import Project from '../../components/Project.astro';
 import Chain from '../../components/Chain.astro';
+import Process from '../../components/Process.astro';
 import Timeline from '../../components/Timeline.astro';
 import Releases from '../../components/Releases.astro';
 import News from '../../components/News.astro';
@@ -38,7 +39,6 @@ const c = t(lang);
       <Founder c={c} />
       <section class="section history-link" aria-labelledby="history-link-title">
         <div class="container">
-          <p class="label">{c.solico.historyLink.label}</p>
           <h2 id="history-link-title" class="h2">{c.solico.historyLink.title}</h2>
           <a class="more-link" href={pagePath(lang, 'history')}>{c.solico.historyLink.link}<Arrow /></a>
         </div>
@@ -67,6 +67,7 @@ const c = t(lang);
     <>
       <PageHead label={c.factory.label} title={c.factory.title} lead={c.factory.lead} />
       <Project c={c} />
+      <Process c={c} />
       <Chain c={c} />
       <Timeline c={c} />
     </>

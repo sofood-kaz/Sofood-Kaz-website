@@ -17,7 +17,6 @@ const items = brands.map((x) => ({ ...x, image: findBrand(x.id) }));
 <section class:list={['brands', 'band-green', 'on-dark', { wipe }]} aria-labelledby="brands-title" data-wipe={wipe ? '' : undefined}>
   <div class="container brands-head">
     <div>
-      <p class="label">{b.label}</p>
       <h2 id="brands-title" class="brands-title">{b.title}</h2>
     </div>
     <p class="brands-text">{intro ?? b.text}</p>

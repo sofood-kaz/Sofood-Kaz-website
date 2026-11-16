@@ -1,0 +1,31 @@
+---
+/*
+ * One-line illustrations (style approved 16.11.2026): a single continuous line,
+ * one colour (currentColor), no fill. `journey` is the campaign drawing
+ * "from farm to shelf"; milk, cheese and shelf are the same hand cut into singles.
+ * Decorative: always hidden from assistive technology.
+ */
+interface Props { name: 'journey' | 'milk' | 'cheese' | 'shelf'; class?: string; draw?: boolean }
+const { name, class: cls, draw = false } = Astro.props;
+
+const PATHS = {
+  milk: 'M4 128C24 118 44 138 70 126C90 118 110 136 130 126L130 172L70 172L70 96C70 78 87 74 87 58L87 36C87 28 113 28 113 36L113 58C113 74 130 78 130 96L130 126C150 116 170 136 196 124',
+  cheese: 'M0 140C10 138 20 141 30 140C80 146 128 151 176 156C177 138 175 118 176 100C156 90 138 78 118 66C88 92 60 116 30 140C80 126 128 114 176 100C166 112 150 118 142 128C134 140 150 150 158 140C164 130 150 122 142 128',
+  shelf: 'M0 152L40 152L40 108L72 108L72 152L98 152L98 96L116 80L134 96L134 152L156 152C162 130 186 130 192 152L200 152',
+  journey: 'M4 128C24 118 44 138 70 126C90 118 110 136 130 126L130 172L70 172L70 96C70 78 87 74 87 58L87 36C87 28 113 28 113 36L113 58C113 74 130 78 130 96L130 126C150 116 176 150 206 140C220 138 230 141 240 140C290 146 338 151 386 156C387 138 385 118 386 100C366 90 348 78 328 66C298 92 270 116 240 140C290 126 338 114 386 100C400 96 408 152 428 152L452 152L452 110L482 110L482 152L504 152L504 98L521 82L538 98L538 152L560 152C566 130 590 130 596 152L616 152',
+};
+const box = name === 'journey' ? '0 16 620 170' : name === 'shelf' ? '0 60 200 112' : name === 'cheese' ? '0 50 200 122' : '0 16 200 170';
+---
+<svg class:list={['line-art', cls, { 'line-draw': draw }]} viewBox={box} aria-hidden="true" focusable="false">
+  <path d={PATHS[name]} pathLength="1" />
+</svg>
+
+<style>
+  .line-art { display: block; fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  .line-art path { vector-effect: non-scaling-stroke; }
+  /* The line is drawn once when it scrolls into view. Visible by default. */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(html.js [data-reveal]) .line-draw path { stroke-dasharray: 1; stroke-dashoffset: 1; }
+    :global(html.js [data-reveal].is-visible) .line-draw path { stroke-dashoffset: 0; transition: stroke-dashoffset 2.6s cubic-bezier(0.45, 0, 0.2, 1) 0.15s; }
+  }
+</style>

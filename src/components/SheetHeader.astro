@@ -1,0 +1,173 @@
+---
+/* The sheet's top margin: brand, Solico Group endorsement, navigation, language. */
+import groupLogo from '../assets/logos/solico-group-white.png';
+import logo from '../assets/logos/sofood-kaz-white.png';
+import { LANGS, LANG_CODES, PAGES, pagePath, type Content, type Lang, type PageKey } from '../i18n';
+interface Props { lang: Lang; c: Content; page: PageKey }
+const { lang, c, page } = Astro.props;
+---
+<header class="margin-bar site-header">
+      <a class="mark" href={pagePath(lang, 'home')} aria-current={page === 'home' ? 'page' : undefined}>
+        <img class="mark-logo" src={logo.src} width="867" height="154" alt={c.brand.name} />
+        <span class="mark-tag">{c.brand.tagline}</span>
+      </a>
+      <a class="mark-group" href="https://solico-group.com/" target="_blank" rel="noopener">
+        <img src={groupLogo.src} width="77" height="28" alt={c.solico.logoAlt} />
+      </a>
+
+      <nav class="site-nav" id="site-nav" aria-label={c.nav.label}>
+        <ul>
+          {PAGES.map((pg) => (
+            <li><a href={pagePath(lang, pg)} aria-current={pg === page ? 'page' : undefined}>{c.pages[pg].nav}</a></li>
+          ))}
+        </ul>
+      </nav>
+
+      <ul class="langs" aria-label={c.nav.langLabel}>
+        {LANG_CODES.map((code) => (
+          <li>
+            <a href={pagePath(code, page)} hreflang={LANGS[code].lang} lang={LANGS[code].lang}
+              aria-current={code === lang ? 'page' : undefined} title={LANGS[code].name}>
+              {LANGS[code].label}<span class="visually-hidden"> {LANGS[code].name}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav"
+        data-open={c.nav.menu} data-close={c.nav.close} hidden>
+        <svg width="18" height="12" viewBox="0 0 18 12" aria-hidden="true" focusable="false">
+          <path d="M0 1h18M0 6h18M0 11h18" fill="none" stroke="currentColor" stroke-width="1.5" />
+        </svg>
+        <span class="menu-button-text">{c.nav.menu}</span>
+      </button>
+  <div class="read-progress" aria-hidden="true"></div>
+</header>
+
+<style>
+  /* ---- Margin bar: brand, navigation, language ---- */
+  .margin-bar {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    min-height: 64px;
+    padding: 0 24px;
+    background: var(--deep);
+    border-bottom: 2px solid var(--milk);
+  }
+  .mark { display: flex; flex-direction: column; line-height: 1; color: var(--milk); padding-block: 10px; }
+  .mark:hover { text-decoration: none; }
+  .mark-name {
+    font-family: var(--narrow);
+    font-weight: 700;
+    font-size: 27px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .mark-logo { display: block; width: auto; height: 30px; max-width: none; }
+  .mark-tag { margin-top: 5px; font-size: 12px; letter-spacing: 0.04em; color: var(--milk-2); white-space: nowrap; }
+  .mark-group { display: block; height: 28px; padding-left: 20px; border-left: 1px solid rgba(251, 250, 244, 0.35); box-sizing: content-box; transition: opacity 0.2s var(--ease-out); }
+  .mark-group img { display: block; width: auto; height: 100%; max-width: none; }
+  .mark-group:hover { opacity: 0.78; }
+  .site-nav { margin-left: auto; }
+  .site-nav ul { display: flex; gap: 0 24px; }
+  .site-nav a,
+  .langs a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-family: var(--narrow);
+    font-size: 17px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--milk);
+    white-space: nowrap;
+    background: linear-gradient(var(--milk), var(--milk)) no-repeat 0 calc(100% - 9px) / 0 2px;
+    transition: background-size 0.3s var(--ease-out);
+  }
+  .site-nav a:hover,
+  .langs a:hover { text-decoration: none; background-size: 100% 2px; }
+  .site-nav a[aria-current='page'] { background-size: 100% 2px; }
+  .langs { display: flex; gap: 12px; padding-left: 20px; border-left: 1px solid rgba(251, 250, 244, 0.35); }
+  .langs a { color: var(--milk-2); }
+  .langs a[aria-current='page'] { color: var(--milk); background-size: 100% 2px; }
+  .langs .visually-hidden { font-family: system-ui, sans-serif; }
+  .menu-button {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 0 14px;
+    border: 1.5px solid var(--milk);
+    border-radius: 0;
+    background: transparent;
+    color: var(--milk);
+    font-family: var(--narrow);
+    font-size: 17px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .menu-button[aria-expanded='true'] { background: var(--milk); color: var(--deep); }
+
+  .margin-bar { position: sticky; top: 0; z-index: 50; min-height: var(--header-h); border-bottom: 0; box-shadow: 0 2px 0 var(--milk); view-transition-name: site-header; }
+  .read-progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 2px;
+    background: var(--milk-2);
+    transform: scaleX(var(--read, 0));
+    transform-origin: left;
+  }
+  .margin-bar :focus-visible { outline: 2px solid var(--mark); outline-offset: 3px; }
+
+  @media (max-width: 1180px) {
+    .margin-bar { gap: 14px; padding-inline: 18px; }
+    .site-nav ul { gap: 0 14px; }
+    .site-nav a, .langs a { font-size: 15px; letter-spacing: 0.04em; }
+    .mark-group { height: 24px; padding-left: 14px; }
+    .langs { gap: 9px; padding-left: 14px; }
+  }
+  @media (max-width: 1020px) {
+    .menu-button { display: inline-flex; }
+    .menu-button[hidden] { display: none; }
+    .langs { margin-left: auto; border-left: 0; padding-left: 0; }
+    .mark-group { display: block; }
+    .margin-bar { flex-wrap: wrap; }
+    :global(html.js) .margin-bar { flex-wrap: nowrap; }
+    .site-nav { order: 5; width: 100%; margin: 0; }
+    .site-nav ul { flex-wrap: wrap; }
+    :global(html.js) .site-nav {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: -2px;
+      right: -2px;
+      width: auto;
+      background: var(--deep);
+      border: 2px solid var(--milk);
+    }
+    :global(html.js) .site-nav.is-open { display: block; }
+    :global(html.js) .site-nav ul { flex-direction: column; padding: 6px 24px 18px; }
+    :global(html.js) .site-nav li + li { border-top: 1px solid rgba(251, 250, 244, 0.25); }
+    :global(html.js) .site-nav a { display: flex; min-height: 54px; font-size: 21px; background-position-y: calc(100% - 12px); }
+    :global(html.js) .site-nav a:hover { background-size: 0 2px; }
+    :global(html.js) .site-nav a[aria-current='page'] { background-size: 2.5em 2px; }
+  }
+  @media (max-width: 760px) {
+    .margin-bar { min-height: 58px; padding: 0 14px; gap: 12px; }
+    .mark-logo { height: 25px; }
+    .mark-tag { font-size: 11px; }
+    .mark-group { display: none; }
+    .langs { gap: 10px; }
+    .langs a { font-size: 15px; }
+  }
+  @media (max-width: 380px) {
+    .menu-button-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .menu-button { padding: 0 12px; }
+  }
+</style>

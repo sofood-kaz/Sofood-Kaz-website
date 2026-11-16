@@ -2,22 +2,22 @@
 import '../styles/tokens.css';
 import '../styles/base.css';
 import '../styles/layout.css';
-import Header from '../components/Header.astro';
+import '../styles/sheet.css';
+import SheetHeader from '../components/SheetHeader.astro';
 import Footer from '../components/Footer.astro';
 import Seo from '../components/Seo.astro';
 import { LANGS, t, type Lang, type PageKey } from '../i18n';
 
-interface Props { lang: Lang; page: PageKey }
-const { lang, page } = Astro.props;
+interface Props { lang: Lang; page: PageKey; sheet?: boolean }
+const { lang, page, sheet = false } = Astro.props;
 const c = t(lang);
 
-// Preload the font files the first screen needs in this language.
-// All of them arrive together, so the page is laid out once, not per font.
-const fonts = lang === 'en'
-  ? ['golos-latin', 'playfair-latin']
+// Preload the font files the first screen needs in this language (display: PT Sans Narrow, text: Golos).
+const sheetFonts = lang === 'en'
+  ? ['golos-latin', 'ptnarrow-latin-700', 'ptnarrow-latin-400']
   : lang === 'kz'
-    ? ['golos-cyrillic', 'golos-cyrillic-ext', 'golos-latin', 'playfair-cyrillic', 'playfair-cyrillic-ext', 'playfair-latin']
-    : ['golos-cyrillic', 'golos-latin', 'playfair-cyrillic', 'playfair-latin'];
+    ? ['golos-cyrillic', 'golos-cyrillic-ext', 'ptnarrow-cyrillic-700', 'ptnarrow-cyrillic-ext-700', 'ptnarrow-latin-700', 'ptnarrow-cyrillic-400', 'ptnarrow-cyrillic-ext-400']
+    : ['golos-cyrillic', 'ptnarrow-cyrillic-700', 'ptnarrow-latin-700', 'ptnarrow-cyrillic-400'];
 ---
 <!doctype html>
 <html lang={LANGS[lang].lang}>
@@ -25,20 +25,22 @@ const fonts = lang === 'en'
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script is:inline>document.documentElement.classList.add('js');</script>
-    {fonts.map((f) => <link rel="preload" href={`/fonts/${f}.woff2`} as="font" type="font/woff2" crossorigin />)}
+    {sheetFonts.map((f) => <link rel="preload" href={`/fonts/${f}.woff2`} as="font" type="font/woff2" crossorigin />)}
     <Seo lang={lang} c={c} page={page} />
-    <meta name="theme-color" content="#F6F3EC" />
+    <meta name="theme-color" content="#06321D" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   </head>
   <body>
     <a class="skip-link" href="#main">{c.nav.skip}</a>
-    <Header lang={lang} c={c} page={page} />
-    <main id="main" tabindex="-1">
-      <slot />
-    </main>
-    <Footer c={c} />
+    <div class="sheet-frame">
+      <SheetHeader lang={lang} c={c} page={page} />
+      <main id="main" tabindex="-1">
+        <slot />
+      </main>
+      <Footer c={c} />
+    </div>
 
     <script is:inline>
       (function () {
@@ -60,7 +62,7 @@ const fonts = lang === 'en'
           document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') { set(false); btn.focus(); }
           });
-          window.matchMedia('(min-width: 1121px)').addEventListener('change', function (e) { if (e.matches) set(false); });
+          window.matchMedia('(min-width: 1021px)').addEventListener('change', function (e) { if (e.matches) set(false); });
         }
 
         // Subtle fade-in on scroll (skipped when reduced motion is requested).

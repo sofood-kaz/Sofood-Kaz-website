@@ -1,0 +1,440 @@
+---
+import { Image } from 'astro:assets';
+import '../styles/sheet.css';
+import geo from '../assets/map/region.json';
+import { findPhoto } from '../lib/images';
+import { pagePath, type Content, type Lang } from '../i18n';
+
+interface Props { lang: Lang; c: Content }
+const { lang, c } = Astro.props;
+const { hero, map, figures } = c;
+const photo = findPhoto(hero.photo.file);
+const p = geo.places;
+
+// Two framings of the same sheet, in map units (see scripts/map.mjs).
+const WIDE = { x: 128, y: 132, w: 760, h: 475 };
+const TALL = { x: 440, y: 300, w: 262, h: 262 };
+const unitsPerKm = 1 / geo.kmPerUnit;
+---
+<section class="sheet-hero" aria-labelledby="sheet-title">
+  <!-- Linework shared by both framings. Source: Natural Earth; relief from open elevation tiles. -->
+  <svg class="sheet-defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <g id="geo">
+        <g class="g-contours">{geo.contours.map((k) => <path d={k.d} class={k.level % 1000 === 0 ? 'is-index' : undefined} />)}</g>
+        <g class="g-water">{geo.water.map((d) => <path d={d} />)}</g>
+        <g class="g-rivers">{geo.rivers.map((d) => <path d={d} />)}</g>
+        <g class="g-border">{geo.border.map((d) => <path d={d} />)}</g>
+        <g class="g-roads">{geo.roads.map((d) => <path d={d} />)}</g>
+      </g>
+      <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <rect width="6" height="6" fill="#FBFAF4" /><rect width="2.5" height="6" fill="#0A5E33" />
+      </pattern>
+      <!-- The complex is under construction, so its plot carries the hatch. -->
+      <pattern id="plot" width="3.2" height="3.2" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <rect width="3.2" height="3.2" fill="#F2C230" /><rect width="1.1" height="3.2" fill="#06321D" />
+      </pattern>
+    </defs>
+  </svg>
+
+
+    <div class="sheet-body">
+      <svg class="map map-wide" viewBox={`${WIDE.x} ${WIDE.y} ${WIDE.w} ${WIDE.h}`} preserveAspectRatio="xMidYMid slice"
+        role="img" aria-label={map.alt} data-map>
+        <use href="#geo" />
+        <g class="labels">
+          <text class="t-region" x="770" y="318">{map.regionZhetisu}</text>
+          <text class="t-region t-region-2" x="640" y="476">{map.regionAlmaty.split(' ').map((w, i) => <tspan x="640" dy={i ? 14 : 0}>{w}</tspan>)}</text>
+          <text class="t-water" x="668" y="408">{map.reservoir}</text>
+          <text class="t-water t-river" x="540" y="335" transform="rotate(31 540 335)">{map.ili}</text>
+          <circle class="city" cx={p.taldykorgan.x} cy={p.taldykorgan.y} r="3" />
+          <text class="t-city" x={p.taldykorgan.x + 7} y={p.taldykorgan.y + 3}>{map.taldykorgan}</text>
+          <circle class="city" cx={p.almaty.x} cy={p.almaty.y} r="4.2" /><circle class="city-dot" cx={p.almaty.x} cy={p.almaty.y} r="1.6" />
+          <text class="t-city" x={p.almaty.x + 9} y={p.almaty.y + 3}>{map.almaty}</text>
+          <rect class="site" x={p.konaev.x - 8} y={p.konaev.y - 8} width="16" height="16" />
+          <text class="t-site" x={p.konaev.x - 13} y={p.konaev.y - 11} text-anchor="end">{map.konaev}</text>
+          <text class="t-site-2" x={p.konaev.x - 13} y={p.konaev.y - 1} text-anchor="end">{map.complex}</text>
+        </g>
+      </svg>
+      <svg class="map map-tall" viewBox={`${TALL.x} ${TALL.y} ${TALL.w} ${TALL.h}`} preserveAspectRatio="xMidYMid slice"
+        role="img" aria-label={map.alt} data-map>
+        <use href="#geo" />
+        <g class="labels">
+          <text class="t-water t-end" x="689" y="459">{map.reservoir}</text>
+          <circle class="city" cx={p.almaty.x} cy={p.almaty.y} r="4.2" /><circle class="city-dot" cx={p.almaty.x} cy={p.almaty.y} r="1.6" />
+          <text class="t-city" x={p.almaty.x + 9} y={p.almaty.y + 3}>{map.almaty}</text>
+          <rect class="site" x={p.konaev.x - 8} y={p.konaev.y - 8} width="16" height="16" />
+          <text class="t-site" x={p.konaev.x - 13} y={p.konaev.y - 11} text-anchor="end">{map.konaev}</text>
+          <text class="t-site-2" x={p.konaev.x - 13} y={p.konaev.y - 1} text-anchor="end">{map.complex}</text>
+        </g>
+      </svg>
+
+      <h1 id="sheet-title" class="sheet-title"><span>{hero.title}</span></h1>
+
+      <div class="legend">
+        <h2 class="legend-head">{figures.label}</h2>
+        <dl class="legend-rows">
+          {figures.items.map((item, i) => (
+            <div class="legend-row">
+              <dt>{item.text}</dt>
+              <dd>
+                {i === figures.items.length - 1 && <span class="state-mark" title={map.building} aria-hidden="true"></span>}
+                {item.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+        <p class="legend-source">{figures.source}</p>
+        <div class="legend-actions">
+          <a class="sheet-button" href={pagePath(lang, 'factory')}>{hero.cta}</a>
+          <a class="sheet-link" href={pagePath(lang, 'contact')}>{hero.link}</a>
+        </div>
+      </div>
+
+      {photo && (
+        <figure class="inset">
+          <Image src={photo} alt={hero.photo.alt} widths={[340, 680, 960]} sizes="(max-width: 760px) 100vw, 340px"
+            loading="eager" fetchpriority="high" />
+          <figcaption><span>{hero.photo.caption}</span><span>{hero.photo.date}</span></figcaption>
+        </figure>
+      )}
+    </div>
+
+    <footer class="margin-foot">
+      <ul class="signs" aria-label={map.signs}>
+        <li><span class="sign sign-site" aria-hidden="true"></span>{map.complex}</li>
+        <li><span class="sign sign-road" aria-hidden="true"></span>{map.road}</li>
+        <li><span class="sign sign-river" aria-hidden="true"></span>{map.river}</li>
+        <li><span class="sign sign-border" aria-hidden="true"></span>{map.border}</li>
+      </ul>
+      <p class="credit">{map.credit}</p>
+      <div class="scale" data-scale data-units-per-km={unitsPerKm} aria-hidden="true">
+        <span class="scale-bar"><i></i><i></i></span>
+        <span class="scale-text"><b data-scale-km>100</b> {map.km}</span>
+      </div>
+    </footer>
+</section>
+
+<script is:inline>
+  (function () {
+    // The scale bar is measured from the rendered map, so it is true at every window size.
+    var scale = document.querySelector('[data-scale]');
+    if (!scale) return;
+    var perKm = parseFloat(scale.dataset.unitsPerKm);
+    var bar = scale.querySelector('.scale-bar');
+    var num = scale.querySelector('[data-scale-km]');
+    var fit = function () {
+      var maps = document.querySelectorAll('[data-map]');
+      for (var i = 0; i < maps.length; i++) {
+        var m = maps[i];
+        if (!m.getBoundingClientRect().width) continue;
+        var ctm = m.getScreenCTM();
+        if (!ctm) return;
+        var km = [200, 100, 50, 20].filter(function (k) { return k * perKm * ctm.a <= 260; })[0] || 20;
+        bar.style.width = (km * perKm * ctm.a).toFixed(1) + 'px';
+        num.textContent = km;
+        scale.classList.add('is-ready');
+        return;
+      }
+    };
+    fit();
+    window.addEventListener('resize', fit);
+  })();
+</script>
+
+<style>
+  .sheet-hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    /* One screen: the viewport less the sheet margin, the frame line and the margin bar. */
+    min-height: clamp(580px, calc(100svh - 2 * var(--sheet-pad) - 4px - var(--header-h)), 940px);
+    background: var(--land);
+    color: var(--milk);
+    border-bottom: 2px solid var(--milk);
+  }
+  .sheet-hero :focus-visible { outline: 2px solid var(--mark); outline-offset: 3px; }
+  .sheet-hero .legend :focus-visible { outline-color: var(--land); }
+  .sheet-defs { position: absolute; }
+
+  /* ---- The map ---- */
+  .sheet-body { position: relative; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+  .map { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; }
+  .map-tall { display: none; }
+  .sheet-defs :global(path), .map :global(path) { vector-effect: non-scaling-stroke; }
+  :global(#geo path) { fill: none; vector-effect: non-scaling-stroke; }
+  :global(#geo .g-contours path) { stroke: var(--contour); stroke-width: 1; }
+  :global(#geo .g-contours path.is-index) { stroke: var(--contour-index); stroke-width: 1.4; }
+  :global(#geo .g-water path) { fill: var(--water); stroke: var(--shore); stroke-width: 1.2; fill-rule: evenodd; }
+  :global(#geo .g-rivers path) { stroke: var(--river); stroke-width: 1.1; stroke-linecap: round; }
+  :global(#geo .g-border path) { stroke: var(--milk); stroke-width: 1.2; stroke-dasharray: 9 4 2 4; opacity: 0.55; }
+  :global(#geo .g-roads path) { stroke: var(--milk); stroke-width: 2.2; stroke-linejoin: round; }
+
+  .labels text {
+    font-family: var(--narrow);
+    fill: var(--milk);
+    paint-order: stroke;
+    stroke: var(--land);
+    stroke-width: 3px;
+    stroke-linejoin: round;
+  }
+  .t-city { font-size: 8.4px; letter-spacing: 0.9px; text-transform: uppercase; }
+  .t-region { font-size: 12px; letter-spacing: 3.2px; text-transform: uppercase; text-anchor: middle; fill: var(--milk-2); opacity: 0.8; }
+  .labels .t-region-2 { font-size: 10.5px; letter-spacing: 2.2px; }
+  .labels .t-water { font-size: 7.2px; letter-spacing: 0.7px; font-style: italic; fill: var(--river); text-anchor: middle; }
+  .labels .t-end { text-anchor: end; }
+  .labels .t-river { font-size: 10px; font-style: normal; letter-spacing: 1.6px; }
+  .labels .t-site { font-size: 13px; font-weight: 700; letter-spacing: 0.9px; text-transform: uppercase; fill: var(--mark); stroke-width: 3.5px; }
+  .labels .t-site-2 { font-size: 7.6px; letter-spacing: 0.5px; fill: var(--milk); }
+  .city { fill: var(--land); stroke: var(--milk); stroke-width: 1.2; }
+  .city-dot { fill: var(--milk); }
+  .site { fill: url(#plot); stroke: var(--mark); stroke-width: 2; }
+  .map-tall .t-city { font-size: 9.5px; }
+  .map-tall .t-site { font-size: 14px; }
+  .map-tall .t-site-2 { font-size: 9.8px; }
+  .map-tall .t-water { font-size: 8.4px; }
+
+  /* ---- Headline, set on the land with a map-label halo ---- */
+  .sheet-title {
+    position: relative;
+    z-index: 1;
+    max-width: min(46%, 15.5em);
+    margin: clamp(28px, 5.5vh, 56px) 0 28px clamp(24px, 3.6vw, 56px);
+    font-family: var(--narrow);
+    font-weight: 700;
+    font-size: clamp(2.5rem, min(5.3vw, 9.6vh), 4.75rem);
+    line-height: 0.98;
+    letter-spacing: -0.012em;
+    text-wrap: balance;
+    color: var(--milk);
+    /* Map-label knock-out: the linework is cleared behind the letters. */
+    /* Halo kept for the edges: the linework is knocked back behind the letters. */
+    text-shadow: 0 0 3px var(--land), 0 0 3px var(--land), 0 0 6px var(--land), 0 0 6px var(--land), 0 0 12px var(--land), 0 0 12px var(--land), 0 0 20px var(--land);
+  }
+
+  .sheet-title span {
+    padding: 0 0.14em;
+    margin-left: -0.14em;
+    /* A band through the middle of each line only: a full box would cover the descenders of the line above. */
+    background: linear-gradient(var(--land), var(--land)) no-repeat 0 62% / 100% 60%;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+
+  /* ---- Legend: the table of figures ---- */
+  .legend {
+    position: relative;
+    z-index: 1;
+    width: min(600px, 44%);
+    margin: auto 0 22px clamp(24px, 3.6vw, 56px);
+    padding: 16px 22px 18px;
+    background: var(--milk);
+    color: var(--legend-ink);
+    box-shadow: 0 10px 28px -8px rgba(3, 26, 15, 0.55);
+  }
+  .legend-head {
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--legend-ink);
+    font-family: var(--narrow);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .legend-rows { display: grid; grid-template-columns: 1fr 1fr; column-gap: 28px; margin: 0; }
+  .legend-row {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    padding: 9px 0 10px;
+    border-bottom: 1px solid var(--legend-rule);
+  }
+  .legend-row dd {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--narrow);
+    font-weight: 700;
+    font-size: clamp(1.9rem, 2.9vw, 2.6rem);
+    line-height: 1;
+    font-variant-numeric: tabular-nums lining-nums;
+    white-space: nowrap;
+  }
+  .legend-row dt { margin-top: 4px; font-size: 14px; line-height: 1.3; color: var(--legend-ink-2); }
+  .state-mark {
+    width: 26px;
+    height: 26px;
+    border: 1.5px solid var(--legend-ink);
+    background: repeating-linear-gradient(45deg, var(--land) 0 2.5px, var(--milk) 2.5px 6px);
+  }
+  .legend-source { margin-top: 8px; font-size: 13px; color: var(--legend-ink-2); }
+  .legend-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 26px; margin-top: 16px; }
+  .sheet-button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 26px;
+    background: var(--land);
+    color: var(--milk);
+    font-family: var(--narrow);
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: background-color 0.2s var(--ease-out), transform 0.2s var(--ease-out);
+  }
+  .sheet-button:hover { background: var(--deep); text-decoration: none; }
+  .sheet-button:active { transform: translateY(1px); }
+  .sheet-link {
+    padding-block: 12px;
+    color: var(--legend-ink);
+    font-weight: 500;
+    font-size: 16px;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.3em;
+  }
+  .sheet-link:hover { text-decoration-thickness: 2px; }
+
+  /* ---- Inset: the site as it stands ---- */
+  .inset {
+    position: absolute;
+    z-index: 1;
+    right: clamp(20px, 2.4vw, 36px);
+    bottom: 22px;
+    width: clamp(230px, 22vw, 320px);
+    border: 2px solid var(--milk);
+    background: var(--deep);
+    box-shadow: 0 10px 28px -8px rgba(3, 26, 15, 0.55);
+  }
+  .inset :global(img) { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+  .inset figcaption {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 7px 10px 8px;
+    border-top: 2px solid var(--milk);
+    font-family: var(--narrow);
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--milk);
+  }
+  .inset figcaption span:last-child { white-space: nowrap; }
+
+  /* ---- Foot margin: conventional signs, credit, scale ---- */
+  .margin-foot {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 10px 28px;
+    min-height: 38px;
+    padding: 6px 24px;
+    background: var(--deep);
+    border-top: 2px solid var(--milk);
+    font-family: var(--narrow);
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--milk-2);
+  }
+  .signs { display: flex; flex-wrap: wrap; gap: 4px 24px; }
+  .signs li { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+  .sign { display: inline-block; width: 26px; }
+  .sign-site { width: 12px; height: 12px; border: 2px solid var(--mark); background: repeating-linear-gradient(45deg, var(--mark) 0 2px, var(--deep) 2px 4px); }
+  .sign-road { height: 3px; background: var(--milk); }
+  .sign-river { height: 1.5px; background: var(--river); }
+  .sign-border { height: 2px; background: repeating-linear-gradient(90deg, var(--milk) 0 9px, transparent 9px 13px, var(--milk) 13px 15px, transparent 15px 19px); opacity: 0.7; }
+  .credit { margin-left: auto; text-transform: none; letter-spacing: 0.03em; }
+  .scale { display: none; align-items: center; gap: 10px; color: var(--milk); }
+  .scale.is-ready { display: inline-flex; }
+  .scale-bar { display: flex; height: 8px; border: 1.5px solid var(--milk); }
+  .scale-bar i { flex: 1; }
+  .scale-bar i:first-child { background: var(--milk); }
+  .scale-text { white-space: nowrap; }
+  .scale-text b { font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  /* ---- Entrance: the sheet develops outward from the complex. Content is visible by default. ---- */
+  @media (prefers-reduced-motion: no-preference) {
+    .map { animation: develop 1.5s var(--ease-out) backwards; }
+    .map-wide { --focus: 60% 62%; }
+    .map-tall { --focus: 55% 48%; }
+    .sheet-title, .legend, .inset { animation: settle 0.8s var(--ease-out) backwards; }
+    .sheet-title { animation-delay: 0.15s; }
+    .legend { animation-delay: 0.45s; }
+    .inset { animation-delay: 0.6s; }
+    .site { animation: beacon 1.1s 1.1s ease-out 2 backwards; }
+  }
+  @keyframes develop {
+    from { clip-path: circle(0% at var(--focus)); }
+    to { clip-path: circle(140% at var(--focus)); }
+  }
+  @keyframes settle {
+    from { opacity: 0; transform: translateY(14px); }
+  }
+  @keyframes beacon {
+    from { stroke: var(--mark); stroke-width: 1; stroke-opacity: 1; }
+    to { stroke: var(--mark); stroke-width: 26; stroke-opacity: 0; }
+  }
+
+  /* ---- Narrower desktops and tablets ---- */
+  @media (max-width: 1020px) {
+    .credit { display: none; }
+    .scale { margin-left: auto; }
+
+    /* Tablets and phones: the sheet becomes a column and the map a band of its own. */
+    .sheet-hero { min-height: 0; display: grid; grid-template-columns: 1.25fr 1fr; }
+    .sheet-body { display: contents; }
+    .margin-foot { grid-column: 1 / -1; order: 1; border-bottom: 2px solid var(--milk); }
+    .legend, .inset { order: 2; }
+    .sheet-title {
+      grid-column: 1 / -1;
+      order: -1;
+      max-width: 17em;
+      margin: 26px 24px 24px;
+      font-size: clamp(2.125rem, 6.4vw, 3.5rem);
+      line-height: 1;
+      text-shadow: none;
+    }
+    .sheet-title span { background: none; padding: 0; margin: 0; }
+    .map {
+      grid-column: 1 / -1;
+      position: relative;
+      inset: auto;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      max-height: 62svh;
+      border-block: 2px solid var(--milk);
+    }
+    .legend { width: auto; margin: 0; padding: 18px 24px 22px; box-shadow: none; }
+    .inset {
+      position: static;
+      display: flex;
+      flex-direction: column;
+      width: auto;
+      border-width: 0 0 0 2px;
+      box-shadow: none;
+    }
+    .inset :global(img) { flex: 1; min-height: 0; aspect-ratio: auto; }
+    .margin-foot { flex-wrap: wrap; }
+  }
+
+  @media (max-width: 760px) {
+    .sheet-hero { grid-template-columns: 1fr; }
+    .sheet-title { margin: 22px 16px 20px; font-size: clamp(2.5rem, 12vw, 3.5rem); }
+    .map { aspect-ratio: 1 / 1; }
+    .map-wide { display: none; }
+    .map-tall { display: block; }
+    .legend { padding: 16px 16px 20px; }
+    .legend-rows { column-gap: 18px; }
+    .legend-row dd { font-size: clamp(1.75rem, 8.4vw, 2.25rem); }
+    .legend-row dt { font-size: 13.5px; }
+    .legend-actions { margin-top: 18px; }
+    .sheet-button { width: 100%; justify-content: center; }
+    .inset { border-width: 2px 0 0; }
+    .inset :global(img) { flex: none; aspect-ratio: 16 / 9; }
+    .margin-foot { padding: 10px 14px; font-size: 13px; }
+    .scale { margin-left: 0; }
+  }
+</style>

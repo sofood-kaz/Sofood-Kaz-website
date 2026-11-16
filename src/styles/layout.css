@@ -8,8 +8,21 @@
 
 .section { padding-block: var(--section-y); }
 .band-white { background: var(--white); border-block: 1px solid var(--rule); }
-.band-green { background: var(--green); color: var(--on-dark); }
-.band-ink { background: var(--ink); color: var(--on-dark); }
+/* Land and margin bands: components inside read the same tokens, re-pointed for a dark ground. */
+.band-green, .band-ink {
+  --ink: var(--milk);
+  --ink-2: var(--milk-2);
+  --ink-3: var(--milk-2);
+  --rule: var(--rule-on-dark);
+  --green: var(--milk);
+  --placeholder: rgba(251, 250, 244, 0.12);
+  color: var(--milk);
+  border-block: 2px solid var(--milk);
+}
+.band-green { background: var(--land); }
+.band-ink { background: var(--deep); }
+.band-green + .band-green, .band-green + .band-ink, .band-ink + .band-green, .page-head + .band-green { border-top: 0; }
+main > :last-child:is(.band-green, .band-ink) { border-bottom: 0; }
 
 .grid {
   display: grid;
@@ -27,10 +40,11 @@
   .span-3, .span-4, .span-5, .span-6, .span-7, .span-8 { grid-column: 1 / -1; }
 }
 
-/* "01 — THE PROJECT" */
+/* Small capital heading, as on a map legend. */
 .label {
-  font-size: var(--fs-label);
-  font-weight: 600;
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 700;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--green);
@@ -39,7 +53,7 @@
 .band-ink .label { color: var(--on-ink-3); }
 
 .h2 {
-  margin-top: 20px;
+  margin-top: 0;
   font-size: var(--fs-h2);
   line-height: 1.08;
 }
@@ -47,7 +61,7 @@
 .prose { color: var(--ink-2); }
 
 /* Rows divided by hairlines: lists, timelines, news. */
-.rows { border-top: 1px solid var(--ink); }
+.rows { border-top: 2px solid var(--ink); }
 .rows > * { border-bottom: 1px solid var(--rule); }
 
 /* Figure with caption (photo or placeholder). */
@@ -81,22 +95,30 @@
   color: var(--ink-3);
 }
 
-/* Page heading on inner pages. */
-.page-head { padding-block: 72px 56px; }
+/* Page heading on inner pages: set on the land, over the relief of the region. */
+.page-head {
+  --ink: var(--milk);
+  --ink-2: var(--milk-2);
+  background: var(--land) url('/map/relief.svg') var(--relief-pos, 40% 60%) / 2400px auto;
+  color: var(--milk);
+  border-bottom: 2px solid var(--milk);
+}
+.page-head > .container { padding-block: 72px 64px; }
 .page-head h1 {
-  margin-top: 20px;
-  max-width: 900px;
+  max-width: 17em;
   font-size: var(--fs-h1);
-  line-height: 1.02;
+  line-height: 0.98;
+  text-shadow: 0 0 6px var(--land), 0 0 6px var(--land), 0 0 12px var(--land);
 }
 .page-head .lead {
   max-width: 640px;
   margin-top: 28px;
   font-size: var(--fs-lead);
-  color: var(--ink-2);
+  color: var(--milk);
+  text-shadow: 0 0 6px var(--land), 0 0 6px var(--land), 0 0 10px var(--land);
 }
 @media (max-width: 900px) {
-  .page-head { padding-block: 40px 40px; }
+  .page-head > .container { padding-block: 40px 40px; }
   .page-head .lead { margin-top: 20px; font-size: var(--fs-body); }
 }
 
@@ -115,10 +137,3 @@
 .more-link svg { flex: none; transition: transform 0.2s ease; }
 .more-link:hover svg { transform: translateX(4px); }
 .band-green .more-link { color: var(--on-dark); }
-
-/* Sections below the first screen are laid out only when they come near
-   the viewport. Keeps long pages light on phones. */
-main > section.section {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 800px;
-}

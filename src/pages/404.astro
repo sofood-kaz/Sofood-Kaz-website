@@ -2,6 +2,7 @@
 import '../styles/tokens.css';
 import '../styles/base.css';
 import '../styles/layout.css';
+import '../styles/sheet.css';
 import { LANGS, LANG_CODES, t } from '../i18n';
 ---
 <!doctype html>
@@ -11,13 +12,13 @@ import { LANGS, LANG_CODES, t } from '../i18n';
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>404 · Sofood Kaz</title>
     <meta name="description" content="Страница не найдена. Бет табылмады. Page not found." />
-    <meta name="theme-color" content="#F6F3EC" />
+    <meta name="theme-color" content="#06321D" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>
+    <div class="sheet-frame">
     <main class="container nf">
       <p class="nf-brand">Sofood Kaz</p>
-      <p class="label">404</p>
       <ul class="rows nf-list">
         {LANG_CODES.map((code) => {
           const c = t(code);
@@ -30,6 +31,7 @@ import { LANGS, LANG_CODES, t } from '../i18n';
         })}
       </ul>
     </main>
+    </div>
   </body>
 </html>
 

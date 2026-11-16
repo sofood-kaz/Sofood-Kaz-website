@@ -13,14 +13,13 @@ type Status = keyof typeof timeline.status;
       </div>
       <div class="bar" aria-hidden="true"><span class="bar-fill" style={`--value: ${progress.value}%`}></span></div>
     </div>
-    <p class="label">{timeline.label}</p>
     <h2 id="timeline-title" class="h2 timeline-title">{timeline.title}</h2>
     <ol class="rows timeline">
       {timeline.items.map((item) => (
         <li class:list={['row', `is-${item.status}`]} data-reveal>
           <span class="date">{item.date}</span>
           <span class="event">{item.text}</span>
-          <span class="status">{timeline.status[item.status as Status]}</span>
+          <span class="status"><span class="state" aria-hidden="true"></span>{timeline.status[item.status as Status]}</span>
         </li>
       ))}
     </ol>
@@ -28,6 +27,12 @@ type Status = keyof typeof timeline.status;
 </section>
 
 <style>
+  /* State is a mark, as on a map: solid built, hatched in progress, outlined planned. */
+  .status { display: inline-flex; align-items: center; justify-content: flex-end; gap: 10px; }
+  .state { flex: none; width: 14px; height: 14px; border: 1.5px solid var(--ink); }
+  .is-done .state { background: var(--ink); }
+  .is-now .state { background: repeating-linear-gradient(45deg, var(--ink) 0 2px, transparent 2px 5px); }
+
   .progress { margin-bottom: 88px; }
   .progress-top {
     display: flex;
@@ -36,6 +41,7 @@ type Status = keyof typeof timeline.status;
   }
   .progress-value {
     font-family: var(--serif);
+    font-weight: 700;
     font-size: clamp(4.5rem, 3rem + 6vw, 8rem);
     line-height: 0.9;
     color: var(--green);
@@ -43,10 +49,10 @@ type Status = keyof typeof timeline.status;
   .progress-text { padding-bottom: 6px; color: var(--ink-2); }
   .progress-text strong { font-weight: 600; color: var(--ink); }
   .bar {
-    height: 10px;
+    height: 16px;
     margin-top: 24px;
-    background: var(--paper);
-    border: 1px solid var(--rule);
+    background: repeating-linear-gradient(45deg, var(--ink-3) 0 2px, transparent 2px 6px);
+    border: 1.5px solid var(--ink);
   }
   .bar-fill {
     display: block;

@@ -9,3 +9,8 @@ artifact/
 preview/
 *.zip
 .claude/
+
+scripts/.mapdata/
+.impeccable/questions/
+.impeccable/mocks/
+.impeccable/review/

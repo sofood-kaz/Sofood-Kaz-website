@@ -15,8 +15,8 @@ const others = team.filter((m) => !m.lead);
         <li data-reveal>
           <Photo image={findPortrait(m.id)} alt={m.name[lang]} ratio="4 / 5" inside={c.team.photo}
             class="portrait" sizes="(max-width: 700px) 100vw, 590px" widths={[480, 720, 1180]} eager />
-          <p class="role">{m.role[lang]}</p>
           <h2 class="lead-name">{m.name[lang]}</h2>
+          <p class="role">{m.role[lang]}</p>
           {m.focus[lang] && <p class="focus">{m.focus[lang]}</p>}
         </li>
       ))}

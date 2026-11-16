@@ -1,16 +1,17 @@
 ---
 import type { Content } from '../i18n';
+import Line from './Line.astro';
+const ART = ['milk', 'cheese', 'shelf'] as const;
 interface Props { c: Content }
 const { chain } = Astro.props.c.factory;
 ---
-<section id="chain" class="section" aria-labelledby="chain-title">
+<section id="chain" class="section band-green" aria-labelledby="chain-title">
   <div class="container">
-    <p class="label">{chain.label}</p>
     <h2 id="chain-title" class="h2 chain-title">{chain.title}</h2>
     <ol class="chain">
-      {chain.columns.map((col) => (
+      {chain.columns.map((col, i) => (
         <li data-reveal>
-          <p class="kicker">{col.kicker}</p>
+          {ART[i] && <Line name={ART[i]} class="chain-art" draw />}
           <h3>{col.title}</h3>
           <p class="text">{col.text}</p>
         </li>
@@ -20,6 +21,7 @@ const { chain } = Astro.props.c.factory;
 </section>
 
 <style>
+  .chain :global(.chain-art) { width: auto; height: 84px; margin-bottom: 18px; }
   .chain-title { max-width: 760px; margin-bottom: 56px; }
   .chain {
     display: grid;
@@ -32,10 +34,6 @@ const { chain } = Astro.props.c.factory;
   }
   .chain li:first-child { padding-left: 0; border-left: 0; }
   .chain li:last-child { padding-right: 0; }
-  .kicker {
-    font-size: 14px;
-    color: var(--ink-3);
-  }
   .chain h3 {
     margin: 8px 0 12px;
     font-size: var(--fs-h3);

@@ -1,0 +1,43 @@
+---
+/* How the plant works: the stages inside phase one, then what follows. Source: Sofood Kaz 3D map (owner-approved wording, 16.11.2026). */
+import type { Content } from '../i18n';
+interface Props { c: Content }
+const { process } = Astro.props.c.factory;
+---
+<section id="process" class="section" aria-labelledby="process-title">
+  <div class="container">
+    <h2 id="process-title" class="h2 title">{process.title}</h2>
+    <ol class="rows">
+      {process.items.map((x) => (
+        <li class:list={['row', `is-${x.status}`]} data-reveal>
+          <h3><span class="state" aria-hidden="true"></span>{x.title}</h3>
+          <p>{x.text}</p>
+        </li>
+      ))}
+    </ol>
+    <ul class="key">
+      <li class="is-now"><span class="state" aria-hidden="true"></span>{process.now}</li>
+      <li class="is-planned"><span class="state" aria-hidden="true"></span>{process.later}</li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .title { margin-bottom: 40px; }
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--col-gap);
+    padding: 22px 0;
+  }
+  .row h3 { display: flex; align-items: baseline; gap: 14px; font-size: var(--fs-h3); line-height: 1.25; }
+  .row p { max-width: 38em; color: var(--ink-2); }
+  /* State is a mark: hatch under construction, outline planned. */
+  .state { flex: none; width: 14px; height: 14px; border: 1.5px solid var(--ink); transform: translateY(1px); }
+  .is-now .state { background: repeating-linear-gradient(45deg, var(--ink) 0 2px, transparent 2px 5px); }
+  .key { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 20px; font-size: var(--fs-small); color: var(--ink-2); }
+  .key li { display: inline-flex; align-items: center; gap: 10px; }
+  @media (max-width: 900px) {
+    .row { grid-template-columns: minmax(0, 1fr); gap: 6px; padding: 18px 0; }
+  }
+</style>

@@ -1,7 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Hero from '../../components/Hero.astro';
-import Figures from '../../components/Figures.astro';
+import MapSheet from '../../components/MapSheet.astro';
+import ScaleSteps from '../../components/ScaleSteps.astro';
+import JourneyLine from '../../components/JourneyLine.astro';
 import HomeIndex from '../../components/HomeIndex.astro';
 import News from '../../components/News.astro';
 import Arrow from '../../components/Arrow.astro';
@@ -14,9 +15,10 @@ export function getStaticPaths() {
 const lang = Astro.params.lang as Lang;
 const c = t(lang);
 ---
-<Base lang={lang} page="home">
-  <Hero c={c} lang={lang} />
-  <Figures c={c} />
+<Base lang={lang} page="home" sheet>
+  <MapSheet c={c} lang={lang} />
+  <JourneyLine />
+  <ScaleSteps c={c} lang={lang} />
   <HomeIndex c={c} lang={lang} />
   <News c={c} lang={lang} title={c.home.pressTitle} limit={3}>
     <a class="more-link" href={pagePath(lang, 'press')}>{c.home.pressLink}<Arrow /></a>

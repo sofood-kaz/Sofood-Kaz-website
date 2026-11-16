@@ -6,7 +6,6 @@ const { pillars } = Astro.props.c.solico;
 ---
 <section class="section" aria-labelledby="pillars-title">
   <div class="container">
-    <p class="label">{pillars.label}</p>
     <h2 id="pillars-title" class="h2 title">{pillars.title}</h2>
     <ul class="pillars">
       {pillars.items.map((x) => (

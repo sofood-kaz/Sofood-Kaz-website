@@ -1,9 +1,13 @@
 ---
-interface Props { label: string; title: string; lead?: string }
-const { label, title, lead } = Astro.props;
+/* Page heading. `label` is accepted for compatibility and no longer shown. */
+interface Props { label?: string; title: string; lead?: string }
+const { title, lead } = Astro.props;
+// Each page shows a different part of the relief, chosen from its title.
+const pos = `${(title.length * 37) % 100}% ${(title.length * 53) % 100}%`;
 ---
-<div class="container page-head">
-  <p class="label">{label}</p>
-  <h1>{title}</h1>
-  {lead && <p class="lead">{lead}</p>}
+<div class="page-head" style={`--relief-pos: ${pos}`}>
+  <div class="container">
+    <h1>{title}</h1>
+    {lead && <p class="lead">{lead}</p>}
+  </div>
 </div>

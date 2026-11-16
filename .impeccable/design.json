@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-15T00:00:00Z",
+  "title": "Design System: Sofood Kaz",
+  "extensions": {
+    "colorMeta": {
+      "land": { "role": "primary", "displayName": "Solico Land Green", "canonical": "#0A5E33", "tonalRamp": ["#03200F", "#063A1F", "#0A5E33", "#2E8556", "#5FA67E", "#94C4A8", "#C6E0D0", "#EAF4EE"] },
+      "deep": { "role": "primary", "displayName": "Sheet Margin Green", "canonical": "#06321D", "tonalRamp": ["#021A0F", "#06321D", "#1A4A33", "#2F4A3A", "#4A6354", "#8AA194", "#C3D2C7", "#EFF4EC"] },
+      "mark": { "role": "secondary", "displayName": "Complex Yellow", "canonical": "#F2C230", "tonalRamp": ["#3A2C03", "#6B5208", "#A37E10", "#D4A51C", "#F2C230", "#F6D56C", "#FAE6A6", "#FDF5DC"] },
+      "river": { "role": "tertiary", "displayName": "River Blue", "canonical": "#8CCBDD", "tonalRamp": ["#0C2A33", "#1A4A58", "#2F6F82", "#4F96AB", "#8CCBDD", "#B0DCE8", "#D2ECF2", "#EEF8FA"] },
+      "water": { "role": "tertiary", "displayName": "Reservoir Teal", "canonical": "#0B4638", "tonalRamp": ["#04211A", "#0B4638", "#1C6654", "#3B8875", "#6AAA9A", "#9CC7BC", "#BFD8D2", "#E8F2EF"] },
+      "shore": { "role": "tertiary", "displayName": "Shoreline", "canonical": "#BFD8D2", "tonalRamp": ["#14302A", "#2A5248", "#467468", "#6B988C", "#95B9AF", "#BFD8D2", "#DAE9E5", "#F1F7F5"] },
+      "contour": { "role": "tertiary", "displayName": "Contour", "canonical": "#1F7446", "tonalRamp": ["#082814", "#0F4627", "#1F7446", "#2E8556", "#5FA67E", "#94C4A8", "#C6E0D0", "#EAF4EE"] },
+      "contour-index": { "role": "tertiary", "displayName": "Index Contour", "canonical": "#2E8556", "tonalRamp": ["#0A2C18", "#14502C", "#1F7446", "#2E8556", "#62A982", "#97C7AB", "#C8E1D2", "#EBF5EF"] },
+      "milk": { "role": "neutral", "displayName": "Milk", "canonical": "#FBFAF4", "tonalRamp": ["#2A2920", "#55533F", "#858264", "#B4B193", "#D9D6BE", "#ECEADB", "#F5F4EA", "#FBFAF4"] },
+      "milk-2": { "role": "neutral", "displayName": "Milk Secondary", "canonical": "#D5E6DA", "tonalRamp": ["#15281C", "#2B4A36", "#4A6E57", "#74977F", "#A3C0AC", "#D5E6DA", "#E4EFE7", "#F3F8F4"] },
+      "white": { "role": "neutral", "displayName": "Sheet Tint", "canonical": "#EFF4EC", "tonalRamp": ["#1D2619", "#3B4C35", "#5F7557", "#8A9E82", "#B6C5AF", "#D8E2D3", "#EFF4EC", "#F8FAF6"] },
+      "ink-2": { "role": "neutral", "displayName": "Ink Secondary", "canonical": "#2F4A3A", "tonalRamp": ["#0F1C15", "#1E3227", "#2F4A3A", "#4A6354", "#718A7B", "#9FB3A6", "#CBD8CF", "#EDF2EE"] },
+      "ink-3": { "role": "neutral", "displayName": "Ink Tertiary", "canonical": "#4A6354", "tonalRamp": ["#141F19", "#27392F", "#3A5144", "#4A6354", "#748C7E", "#A1B4A8", "#CCD8D0", "#EEF2EF"] },
+      "rule": { "role": "neutral", "displayName": "Rule", "canonical": "#C3D2C7", "tonalRamp": ["#1A251D", "#35493A", "#566E5C", "#7D9483", "#A2B5A7", "#C3D2C7", "#DDE6DF", "#F2F6F3"] },
+      "legend-rule": { "role": "neutral", "displayName": "Legend Rule", "canonical": "#A9BFB0", "tonalRamp": ["#17241B", "#2F4637", "#4D6A56", "#73907C", "#A9BFB0", "#C6D5CB", "#DFE8E2", "#F3F7F4"] },
+      "placeholder": { "role": "neutral", "displayName": "Placeholder", "canonical": "#DCE6DD", "tonalRamp": ["#1A251B", "#364A38", "#587059", "#80977F", "#ACBEAC", "#DCE6DD", "#EAF0EA", "#F6F9F6"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Home headline and the h1 of every page head, set on the land." },
+      "headline": { "displayName": "Headline", "purpose": "Section headings; a larger step (clamp 34 to 56px) for contact and founder titles." },
+      "title": { "displayName": "Title", "purpose": "Row and column headings inside sections." },
+      "body": { "displayName": "Body", "purpose": "Prose in secondary ink, about 34em to 640px wide." },
+      "lead": { "displayName": "Lead", "purpose": "Lead paragraph of a page head." },
+      "figure": { "displayName": "Figure", "purpose": "Quotable figures with tabular lining numerals; scales up to 6rem on the stage and 8rem on the factory page." },
+      "label": { "displayName": "Label", "purpose": "Uppercase legend-style heading, used as the heading itself." },
+      "label-small": { "displayName": "Small label", "purpose": "Uppercase headings of short lists and contact items, and roles." },
+      "nav": { "displayName": "Navigation", "purpose": "Uppercase margin-bar links and language codes." },
+      "furniture": { "displayName": "Furniture", "purpose": "Uppercase foot margin, caption strips and scale steps." }
+    },
+    "shadows": [
+      { "name": "panel-on-map", "value": "0 10px 28px -8px rgba(3, 26, 15, 0.55)", "purpose": "Legend panel and photo inset while they float over the home map on desktop; removed at 1020px and below." },
+      { "name": "bar-frame-line", "value": "0 2px 0 #FBFAF4", "purpose": "Drawn 2px milk line under the sticky margin bar." },
+      { "name": "knock-out-halo", "value": "text-shadow: 0 0 6px #0A5E33, 0 0 6px #0A5E33, 0 0 12px #0A5E33", "purpose": "Clears relief linework behind headings set on the land." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Easing for map, stage, button and navigation transitions." },
+      { "name": "develop", "value": "clip-path circle(0%) to circle(140%) at the complex, 1.5s ease-out", "purpose": "Home map entrance: the sheet develops outward from the complex." },
+      { "name": "settle", "value": "opacity 0 and translateY(14px) to rest, 0.8s ease-out, delays 0.15s / 0.45s / 0.6s", "purpose": "Headline, legend and inset entrance." },
+      { "name": "beacon", "value": "stroke-width 1 to 26, stroke-opacity 1 to 0, 1.1s ease-out, twice, after 1.1s", "purpose": "Pulse on the complex plot after the map develops." },
+      { "name": "scale-zoom", "value": "transform scale(6) toward the complex, 1.2s ease-out", "purpose": "Stage map between the region and site scales." },
+      { "name": "plate-open", "value": "clip-path circle(0%) to circle(75%), 0.9s ease-out, delay 0.5s", "purpose": "Stage photograph opening from the plot." },
+      { "name": "reveal", "value": "opacity and translateY(12px), 0.6s ease", "purpose": "One-time fade-in of blocks entering the window." },
+      { "name": "nav-underline", "value": "background-size 0 to 100%, 0.3s ease-out", "purpose": "2px underline on navigation hover." },
+      { "name": "bar-fill", "value": "width 0 to value, 1.4s cubic-bezier(0.2, 0.7, 0.2, 1), delay 0.2s", "purpose": "Factory progress bar when it scrolls into view." },
+      { "name": "page-cross-fade", "value": "view transition, 0.28s", "purpose": "Cross-fade between pages where supported." },
+      { "name": "reduced-motion", "value": "all of the above off", "purpose": "Content is visible by default; the stage switches without transitions." }
+    ],
+    "breakpoints": [
+      { "name": "nav-tight", "value": "1180px" },
+      { "name": "sheet-grid-and-menu", "value": "1020px" },
+      { "name": "layout", "value": "900px" },
+      { "name": "phone", "value": "760px" },
+      { "name": "small", "value": "640px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Sheet Button",
+      "kind": "button",
+      "refersTo": "sheet-button",
+      "description": "Primary action inside a legend panel; one per panel.",
+      "html": "<a class=\"ds-sheet-button\" href=\"#\">About the factory</a>",
+      "css": ".ds-sheet-button { display: inline-flex; align-items: center; min-height: 48px; padding: 0 26px; background: #0A5E33; color: #FBFAF4; font-family: 'PT Sans Narrow', 'Arial Narrow', 'Roboto Condensed', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 0; transition: background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1); } .ds-sheet-button:hover { background: #06321D; } .ds-sheet-button:active { transform: translateY(1px); } .ds-sheet-button:focus-visible { outline: 2px solid #0A5E33; outline-offset: 3px; }"
+    },
+    {
+      "name": "Text Link",
+      "kind": "button",
+      "description": "Secondary action beside the sheet button, and the read-more link with arrow.",
+      "html": "<a class=\"ds-more-link\" href=\"#\">Contact the team<svg width=\"18\" height=\"10\" viewBox=\"0 0 18 10\" aria-hidden=\"true\"><path d=\"M0 5h16M12 1l4 4-4 4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/></svg></a>",
+      "css": ".ds-more-link { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; color: #0A5E33; font-family: 'Golos Text', system-ui, sans-serif; font-weight: 500; font-size: 17px; text-decoration: underline; text-underline-offset: 0.3em; text-decoration-thickness: 1px; } .ds-more-link:hover { text-decoration-thickness: 2px; } .ds-more-link svg { flex: none; transition: transform 0.2s ease; } .ds-more-link:hover svg { transform: translateX(4px); } .ds-more-link:focus-visible { outline: 2px solid #0A5E33; outline-offset: 3px; }"
+    },
+    {
+      "name": "Margin Bar",
+      "kind": "nav",
+      "refersTo": "margin-bar",
+      "description": "The sheet's top margin: text wordmark, endorsement, navigation, language.",
+      "html": "<header class=\"ds-margin-bar\"><a class=\"ds-mark\" href=\"#\"><span class=\"ds-mark-name\">Sofood Kaz</span><span class=\"ds-mark-tag\">part of Solico Group</span></a><nav class=\"ds-nav\"><a href=\"#\">History</a><a href=\"#\" aria-current=\"page\">The factory</a><a href=\"#\">Contact</a></nav><div class=\"ds-langs\"><a href=\"#\">RU</a><a href=\"#\">KZ</a><a href=\"#\" aria-current=\"page\">EN</a></div></header>",
+      "css": ".ds-margin-bar { display: flex; align-items: center; gap: 20px; min-height: 66px; padding: 0 24px; background: #06321D; box-shadow: 0 2px 0 #FBFAF4; font-family: 'PT Sans Narrow', 'Arial Narrow', 'Roboto Condensed', sans-serif; } .ds-mark { display: flex; flex-direction: column; line-height: 1; color: #FBFAF4; text-decoration: none; } .ds-mark-name { font-weight: 700; font-size: 27px; letter-spacing: 0.05em; text-transform: uppercase; } .ds-mark-tag { margin-top: 5px; font-family: 'Golos Text', system-ui, sans-serif; font-size: 12px; letter-spacing: 0.04em; color: #D5E6DA; } .ds-nav { display: flex; gap: 24px; margin-left: auto; } .ds-langs { display: flex; gap: 12px; padding-left: 20px; border-left: 1px solid rgba(251, 250, 244, 0.35); } .ds-nav a, .ds-langs a { display: inline-flex; align-items: center; min-height: 44px; font-size: 17px; letter-spacing: 0.07em; text-transform: uppercase; color: #FBFAF4; text-decoration: none; background: linear-gradient(#FBFAF4, #FBFAF4) no-repeat 0 calc(100% - 9px) / 0 2px; transition: background-size 0.3s cubic-bezier(0.16, 1, 0.3, 1); } .ds-langs a { color: #D5E6DA; } .ds-nav a:hover, .ds-langs a:hover, .ds-nav a[aria-current='page'], .ds-langs a[aria-current='page'] { background-size: 100% 2px; } .ds-langs a[aria-current='page'] { color: #FBFAF4; } .ds-margin-bar a:focus-visible { outline: 2px solid #F2C230; outline-offset: 3px; }"
+    },
+    {
+      "name": "Legend Panel",
+      "kind": "card",
+      "refersTo": "legend-panel",
+      "description": "The table of figures on the home map: label heading, figure rows with unit and date, source line, actions.",
+      "html": "<div class=\"ds-legend\"><h2 class=\"ds-legend-head\">Key figures</h2><dl class=\"ds-legend-rows\"><div class=\"ds-legend-row\"><dt>of products a year: cheese plant capacity</dt><dd>40,920 t</dd></div><div class=\"ds-legend-row\"><dt>of phase one built (October 2026)</dt><dd><span class=\"ds-legend-mark\"></span>23%</dd></div></dl><p class=\"ds-legend-source\">Source: [___]</p></div>",
+      "css": ".ds-legend { width: 520px; max-width: 100%; padding: 16px 22px 18px; background: #FBFAF4; color: #06321D; font-family: 'Golos Text', system-ui, sans-serif; box-shadow: 0 10px 28px -8px rgba(3, 26, 15, 0.55); } .ds-legend-head { margin: 0; padding-bottom: 8px; border-bottom: 2px solid #06321D; font-family: 'PT Sans Narrow', 'Arial Narrow', 'Roboto Condensed', sans-serif; font-weight: 700; font-size: 15px; letter-spacing: 0.14em; text-transform: uppercase; } .ds-legend-rows { display: grid; grid-template-columns: 1fr 1fr; column-gap: 28px; margin: 0; } .ds-legend-row { display: flex; flex-direction: column-reverse; justify-content: flex-end; padding: 9px 0 10px; border-bottom: 1px solid #A9BFB0; } .ds-legend-row dd { display: flex; align-items: center; gap: 10px; margin: 0; font-family: 'PT Sans Narrow', 'Arial Narrow', 'Roboto Condensed', sans-serif; font-weight: 700; font-size: 2.4rem; line-height: 1; font-variant-numeric: tabular-nums lining-nums; white-space: nowrap; } .ds-legend-row dt { margin-top: 4px; font-size: 14px; line-height: 1.3; color: #2F4A3A; } .ds-legend-mark { width: 26px; height: 26px; border: 1.5px solid #06321D; background: repeating-linear-gradient(45deg, #0A5E33 0 2.5px, #FBFAF4 2.5px 6px); } .ds-legend-source { margin: 8px 0 0; font-size: 13px; color: #2F4A3A; }"
+    },
+    {
+      "name": "State Marks",
+      "kind": "chip",
+      "refersTo": "state-mark",
+      "description": "State by mark, as on a map: solid done, hatch under way, outline planned.",
+      "html": "<ul class=\"ds-states\"><li><span class=\"ds-state ds-state-done\"></span>Done</li><li class=\"ds-now\"><span class=\"ds-state ds-state-now\"></span>Now</li><li><span class=\"ds-state\"></span>Planned</li></ul>",
+      "css": ".ds-states { display: flex; gap: 28px; margin: 0; padding: 0; list-style: none; font-family: 'Golos Text', system-ui, sans-serif; font-size: 17px; color: #4A6354; } .ds-states li { display: inline-flex; align-items: center; gap: 10px; } .ds-states .ds-now { color: #0A5E33; font-weight: 600; } .ds-state { flex: none; width: 14px; height: 14px; border: 1.5px solid #06321D; } .ds-state-done { background: #06321D; } .ds-state-now { background: repeating-linear-gradient(45deg, #06321D 0 2px, transparent 2px 5px); }"
+    },
+    {
+      "name": "Progress Bar",
+      "kind": "custom",
+      "description": "Built share solid, the remainder hatched; figure in the narrow face beside its label and date.",
+      "html": "<div class=\"ds-progress\"><div class=\"ds-progress-top\"><span class=\"ds-progress-value\">23%</span><span class=\"ds-progress-text\"><strong>Phase one built</strong><br>Cheese plant, October 2026</span></div><div class=\"ds-bar\"><span style=\"width: 23%\"></span></div></div>",
+      "css": ".ds-progress { font-family: 'Golos Text', system-ui, sans-serif; color: #2F4A3A; } .ds-progress-top { display: flex; align-items: flex-end; gap: 24px; } .ds-progress-value { font-family: 'PT Sans Narrow', 'Arial Narrow', 'Roboto Condensed', sans-serif; font-weight: 700; font-size: 6rem; line-height: 0.9; color: #0A5E33; } .ds-progress-text { padding-bottom: 6px; font-size: 17px; } .ds-progress-text strong { font-weight: 600; color: #06321D; } .ds-bar { height: 16px; margin-top: 24px; border: 1.5px solid #06321D; background: repeating-linear-gradient(45deg, #4A6354 0 2px, transparent 2px 6px); } .ds-bar span { display: block; height: 100%; background: #0A5E33; }"
+    },
+    {
+      "name": "Foot Margin",
+      "kind": "custom",
+      "refersTo": "margin-foot",
+      "description": "Bottom margin of the map sheet: conventional signs and the scale bar.",
+      "html": "<footer class=\"ds-foot\"><ul class=\"ds-signs\"><li><span class=\"ds-sign ds-sign-site\"></span>Sofood Kaz complex</li><li><span class=\"ds-sign ds-sign-road\"></span>Highway</li><li><span class=\"ds-sign ds-sign-river\"></span>River</li></ul><div class=\"ds-scale\"><span class=\"ds-scale-bar\"><i></i><i></i></span><span><b>50</b> km</span></div></footer>",
+      "css": ".ds-foot { display: flex; align-items: center; gap: 10px 28px; min-height: 38px; padding: 6px 24px; background: #06321D; border-top: 2px solid #FBFAF4; font-family: 'PT Sans Narrow', 'Arial Narrow', 'Roboto Condensed', sans-serif; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; color: #D5E6DA; } .ds-signs { display: flex; flex-wrap: wrap; gap: 4px 24px; margin: 0; padding: 0; list-style: none; } .ds-signs li { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; } .ds-sign { display: inline-block; width: 26px; } .ds-sign-site { width: 12px; height: 12px; border: 2px solid #F2C230; background: repeating-linear-gradient(45deg, #F2C230 0 2px, #06321D 2px 4px); } .ds-sign-road { height: 3px; background: #FBFAF4; } .ds-sign-river { height: 1.5px; background: #8CCBDD; } .ds-scale { display: inline-flex; align-items: center; gap: 10px; margin-left: auto; color: #FBFAF4; } .ds-scale-bar { display: flex; width: 160px; height: 8px; border: 1.5px solid #FBFAF4; } .ds-scale-bar i { flex: 1; } .ds-scale-bar i:first-child { background: #FBFAF4; } .ds-scale b { font-weight: 700; font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Photo Inset",
+      "kind": "card",
+      "description": "Framed photograph on the map with a caption strip: caption left, date right.",
+      "html": "<figure class=\"ds-inset\"><div class=\"ds-inset-img\"></div><figcaption><span>Photo: construction site, Konaev</span><span>[___]</span></figcaption></figure>",
+      "css": ".ds-inset { width: 320px; margin: 0; border: 2px solid #FBFAF4; background: #06321D; box-shadow: 0 10px 28px -8px rgba(3, 26, 15, 0.55); } .ds-inset-img { aspect-ratio: 16 / 9; background: #DCE6DD; } .ds-inset figcaption { display: flex; justify-content: space-between; gap: 12px; padding: 7px 10px 8px; border-top: 2px solid #FBFAF4; font-family: 'PT Sans Narrow', 'Arial Narrow', 'Roboto Condensed', sans-serif; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; color: #FBFAF4; }"
+    },
+    {
+      "name": "Page Head",
+      "kind": "custom",
+      "refersTo": "page-head",
+      "description": "Green land band that opens every inner page: display title and optional lead, no label above.",
+      "html": "<div class=\"ds-page-head\"><h1>The dairy complex in Konaev</h1><p>The cheese plant is phase one.</p></div>",
+      "css": ".ds-page-head { padding: 72px 40px 64px; background: #0A5E33; color: #FBFAF4; border-bottom: 2px solid #FBFAF4; } .ds-page-head h1 { margin: 0; max-width: 17em; font-family: 'PT Sans Narrow', 'Arial Narrow', 'Roboto Condensed', sans-serif; font-weight: 700; font-size: clamp(2.5rem, 1.1rem + 4.6vw, 4.75rem); line-height: 0.98; letter-spacing: -0.008em; text-shadow: 0 0 6px #0A5E33, 0 0 6px #0A5E33, 0 0 12px #0A5E33; } .ds-page-head p { max-width: 640px; margin: 28px 0 0; font-family: 'Golos Text', system-ui, sans-serif; font-size: 1.1875rem; line-height: 1.55; }"
+    },
+    {
+      "name": "Ruled Rows",
+      "kind": "custom",
+      "description": "Index and table rows: 2px ink rule on top, 1px rules between, narrow bold title, arrow that moves on hover.",
+      "html": "<ul class=\"ds-rows\"><li><a href=\"#\"><span class=\"ds-rows-title\">The factory</span><span class=\"ds-rows-text\">What is being built in Konaev and where it stands.</span><svg width=\"18\" height=\"10\" viewBox=\"0 0 18 10\" aria-hidden=\"true\"><path d=\"M0 5h16M12 1l4 4-4 4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/></svg></a></li><li><a href=\"#\"><span class=\"ds-rows-title\">Our team</span><span class=\"ds-rows-text\">Named management in Kazakhstan.</span><svg width=\"18\" height=\"10\" viewBox=\"0 0 18 10\" aria-hidden=\"true\"><path d=\"M0 5h16M12 1l4 4-4 4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/></svg></a></li></ul>",
+      "css": ".ds-rows { margin: 0; padding: 0; list-style: none; border-top: 2px solid #06321D; font-family: 'Golos Text', system-ui, sans-serif; } .ds-rows li { border-bottom: 1px solid #C3D2C7; } .ds-rows a { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr) 40px; gap: 32px; align-items: baseline; padding: 26px 0; color: #06321D; text-decoration: none; } .ds-rows-title { font-family: 'PT Sans Narrow', 'Arial Narrow', 'Roboto Condensed', sans-serif; font-weight: 700; font-size: 2.25rem; line-height: 1.1; transition: color 0.2s ease; } .ds-rows a:hover .ds-rows-title { color: #0A5E33; } .ds-rows-text { font-size: 17px; color: #2F4A3A; } .ds-rows svg { justify-self: end; align-self: center; color: #0A5E33; transition: transform 0.2s ease; } .ds-rows a:hover svg { transform: translateX(6px); } .ds-rows a:focus-visible { outline: 2px solid #0A5E33; outline-offset: 3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Map Sheet",
+    "overview": "Every page is one printed map sheet. The browser window is the deep green margin of the sheet; a 2px milk line frames the content inside it; the top is a margin bar with the name, the Solico Group endorsement, navigation and language. The home page opens on a drawn map of the Almaty and Zhetisu regions (Natural Earth linework, contours from open elevation tiles) with the complex in Konaev marked in yellow, a milk legend panel that is the table of key figures, an inset site photograph and a foot margin with conventional signs, credit and a measured scale bar.\n\nInner pages keep the sheet frame and the margin bar but read on milk grounds. Each opens with a green land page head set over the relief of the region, and green or deep bands break the milk sections. Components are map furniture: legend panels, hairline tables, state marks, scale bars, place labels. The density is that of a reference sheet: tables and rows with rules, few panels, no cards.\n\nThe system refuses the corporate hero photograph with a stats row and cards. Photographs appear as framed insets or plates with a caption strip, never as a full-bleed mood image.",
+    "keyCharacteristics": [
+      "One sheet per page: deep margin, 2px milk frame line, square corners throughout.",
+      "Solico green land is the main ground; milk is linework, panels and reading ground.",
+      "One yellow, reserved for the complex.",
+      "State is a mark (solid, hatch, outline), never a hue.",
+      "Condensed capitals for labels and furniture; tabular numerals for figures.",
+      "Three equal languages (RU, KZ, EN); every face covers Kazakh letters."
+    ],
+    "rules": [
+      { "name": "The Reserved Yellow Rule", "body": "Yellow belongs to the complex: its plot, its name, its progress figure. The only other uses are focus rings on dark grounds and selection. It is never a button, a band, a link or a decoration.", "section": "colors" },
+      { "name": "The Dark Water Rule", "body": "Water is darker than land with a pale shoreline. Rivers and water names carry the only blue on the sheet.", "section": "colors" },
+      { "name": "The Re-pointed Tokens Rule", "body": "Green and deep bands do not get their own components. They re-point the ink, rule, link and placeholder tokens to milk values, so the same component reads on either ground.", "section": "colors" },
+      { "name": "The Label-Is-The-Heading Rule", "body": "A capital label is a heading in its own right, as on a legend. It is never stacked above another heading as a kicker or eyebrow. Page heads carry a title and an optional lead, nothing above them.", "section": "typography" },
+      { "name": "The Quotable Figure Rule", "body": "A figure is set in the narrow face with tabular numerals, with its unit beside it and its description, date and source directly under it.", "section": "typography" },
+      { "name": "The Knock-Out Rule", "body": "Type on the map or on the relief clears the linework behind it: map labels by a land-coloured stroke painted under the fill, headings by a land-coloured halo, and the home headline also by a land backing behind each line.", "section": "typography" },
+      { "name": "The Lies-On-The-Map Rule", "body": "A soft shadow appears only under a panel that lies on top of the drawn map. Anything on a plain ground is flat.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do frame every page as a sheet: deep margin, 2px milk frame line, sticky margin bar, deep footer.",
+      "Do open every inner page with the green page head over the relief, then read on milk grounds with green or deep bands between.",
+      "Do keep yellow for the complex: plot, Konaev label, the progress figure on green, the complex sign, plus focus rings on dark grounds and selection.",
+      "Do show state by mark: solid built, 45-degree hatch under construction, outline planned, with the word beside it.",
+      "Do set figures in PT Sans Narrow 700 with tabular numerals, with unit, description, date and source next to them.",
+      "Do clear linework behind any type placed on the map or the relief (stroke, halo or backing in the land colour).",
+      "Do draw structure with rules: 2px between grounds and above tables, 1px between rows.",
+      "Do check any new typeface for ә ғ қ ң ө ү һ ұ і before using it.",
+      "Do give every scroll-driven or animated element a static form for phones, no JavaScript and reduced motion."
+    ],
+    "donts": [
+      "Don't put a kicker or eyebrow above a heading. A capital label is used only as the heading itself.",
+      "Don't use yellow for buttons, links, bands, icons or emphasis in prose.",
+      "Don't use hatching as decoration; it means under construction.",
+      "Don't signal state by colour alone.",
+      "Don't draw water pale or light blue; water is dark teal with a pale shoreline, and only rivers and water names are blue.",
+      "Don't round the corners of panels, buttons, frames or photographs.",
+      "Don't add shadows to anything that does not lie on the drawn map.",
+      "Don't use a full-bleed mood photograph as a hero, or cards with a stats row.",
+      "Don't place farms, suppliers or other points on the map that are not in the source data."
+    ]
+  }
+}
