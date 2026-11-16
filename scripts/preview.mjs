@@ -33,7 +33,7 @@ const notes = {
   kz: `sofoodkaz.kz сайтының жобасы · ${version}-нұсқа · ${date}`,
   en: `Draft of sofoodkaz.kz · version ${version} · ${date}`,
 };
-const noteCss = '<style>.draft-note{background:#1B211D;color:#F6F3EC;font-size:13px;line-height:1.4;padding-block:8px}</style>';
+const noteCss = '<style>.draft-note{background:#06321D;color:#D5E6DA;font-size:13px;line-height:1.4;padding-block:8px}</style>';
 
 async function* walk(dir) {
   for (const e of await readdir(dir, { withFileTypes: true })) {
